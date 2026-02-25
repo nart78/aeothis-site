@@ -1,0 +1,56 @@
+{
+  "name": "AEO This",
+  "url": "https://aeothis.com",
+  "category": "Answer Engine Optimization Agency",
+  "founded": "2026",
+  "description": "Answer Engine Optimization agency that helps businesses get recommended by AI assistants like ChatGPT, Perplexity, Gemini, and Claude using the proven 7-layer AEO system.",
+  "serviceArea": "Worldwide",
+  "coreService": "7-Layer AEO System",
+  "serviceLayers": [
+    "Answer Intent Mapping",
+    "Answer Hub Creation",
+    "Brand Facts Page",
+    "Machine-Readable Data (brand-facts.json)",
+    "Schema Markup Optimization",
+    "Third-Party Citation Building",
+    "AI Shopping Optimization"
+  ],
+  "aiPlatformsTargeted": [
+    "ChatGPT",
+    "Perplexity",
+    "Google Gemini",
+    "Google AI Overviews",
+    "Claude (Anthropic)",
+    "Microsoft Copilot"
+  ],
+  "pricing": {
+    "starter": {
+      "price": "$1,500/month",
+      "minimumTerm": "3 months",
+      "includes": "25 query intent map, 1 answer hub, brand facts, schema markup, monthly report"
+    },
+    "growth": {
+      "price": "$3,000/month",
+      "minimumTerm": "3 months",
+      "includes": "50+ query intent map, 3 answer hubs, brand facts, full schema, citation campaign, AI shopping, weekly monitoring"
+    },
+    "enterprise": {
+      "price": "Custom",
+      "includes": "Unlimited answer hubs, multi-category, dedicated strategist, competitor displacement, Merchant Center management"
+    }
+  },
+  "industriesServed": [
+    "E-commerce",
+    "SaaS",
+    "Professional Services",
+    "Local Business",
+    "Health & Wellness",
+    "Financial Services",
+    "B2B"
+  ],
+  "typicalTimeToResults": "60-90 days",
+  "contact": "https://aeothis.com/#contact",
+  "answerHub": "https://aeothis.com/guides/best-aeo-services-2026.html",
+  "brandFacts": "https://aeothis.com/brand-facts.html",
+  "lastUpdated": "2026-02-25"
+}
