@@ -487,75 +487,75 @@ img { max-width: 100%; display: block; }
 
 /* ---- Icon badges (logo circles) ---- */
 .obj--icon-badge {
-  width: 52px;
-  height: 52px;
+  width: 104px;
+  height: 104px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 8px 28px rgba(0,67,112,0.12);
-  background: #fff;
+  box-shadow: 0 10px 36px rgba(0,67,112,0.14);
+  background: transparent;
   overflow: hidden;
 }
 .obj--icon-badge img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 50%;
 }
 
 /* Left side logos */
 .obj--icon-perplexity {
-  bottom: 30%;
-  left: 15px;
+  bottom: 32%;
+  left: -10px;
   --rot: -8deg;
   transform: rotate(var(--rot));
 }
 .obj--icon-gemini {
-  bottom: 18%;
-  left: 55px;
-  width: 44px;
-  height: 44px;
+  bottom: 16%;
+  left: 70px;
+  width: 88px;
+  height: 88px;
   --rot: 5deg;
   transform: rotate(var(--rot));
 }
 .obj--icon-deepseek {
-  bottom: 10%;
-  left: 10px;
-  width: 40px;
-  height: 40px;
+  bottom: 5%;
+  left: -15px;
+  width: 80px;
+  height: 80px;
   --rot: -4deg;
   transform: rotate(var(--rot));
 }
 .obj--icon-meta {
   bottom: 22%;
-  left: 80px;
-  width: 38px;
-  height: 38px;
+  left: 120px;
+  width: 76px;
+  height: 76px;
   --rot: 7deg;
   transform: rotate(var(--rot));
 }
 
 /* Right side logos */
 .obj--icon-chatgpt {
-  bottom: 30%;
-  right: 15px;
+  bottom: 32%;
+  right: -10px;
   --rot: 6deg;
   transform: rotate(var(--rot));
 }
 .obj--icon-copilot {
-  bottom: 18%;
-  right: 60px;
-  width: 44px;
-  height: 44px;
+  bottom: 16%;
+  right: 80px;
+  width: 88px;
+  height: 88px;
   --rot: -5deg;
   transform: rotate(var(--rot));
 }
 .obj--icon-grok {
-  bottom: 10%;
-  right: 10px;
-  width: 40px;
-  height: 40px;
+  bottom: 5%;
+  right: -15px;
+  width: 80px;
+  height: 80px;
   --rot: 8deg;
   transform: rotate(var(--rot));
 }
@@ -662,8 +662,10 @@ img { max-width: 100%; display: block; }
 
 /* ---- Claude icon ---- */
 .obj--icon-claude {
-  bottom: 22%;
-  right: 30px;
+  bottom: 24%;
+  right: 130px;
+  width: 76px;
+  height: 76px;
   --rot: -6deg;
   transform: rotate(var(--rot));
 }
