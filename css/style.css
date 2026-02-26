@@ -73,8 +73,8 @@ img { max-width: 100%; display: block; }
   transition: background 0.3s, box-shadow 0.3s;
 }
 .nav .container { display: flex; justify-content: space-between; align-items: center; }
-.nav__logo { font-size: 22px; font-weight: 700; color: var(--primary); }
-.nav__logo span { color: var(--accent); }
+.nav__logo { display: flex; align-items: center; }
+.nav__logo img { height: 42px; width: auto; display: block; }
 .nav__links { display: flex; gap: 32px; align-items: center; }
 .nav__links a { color: var(--text-light); font-size: 15px; font-weight: 500; transition: color 0.2s; }
 .nav__links a:hover { color: var(--accent); text-decoration: none; }
