@@ -135,6 +135,12 @@ img { max-width: 100%; display: block; }
   padding: 120px 0 80px;
   background: radial-gradient(ellipse 120% 60% at 50% 80%, rgba(0,67,112,0.04) 0%, rgba(247,250,252,0.5) 50%, var(--bg) 100%);
 }
+.hero__logo {
+  display: block;
+  max-width: 280px;
+  height: auto;
+  margin: 0 auto 32px;
+}
 .hero__badge {
   display: inline-block;
   background: var(--accent-light); color: var(--accent);
