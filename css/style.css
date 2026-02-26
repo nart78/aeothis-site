@@ -379,7 +379,8 @@ img { max-width: 100%; display: block; }
   box-shadow: 0 12px 48px rgba(0,67,112,0.13), 0 2px 8px rgba(0,0,0,0.04);
   font-size: 13px;
   color: var(--text);
-  transform: rotate(-6deg);
+  --rot: -6deg;
+  transform: rotate(var(--rot));
 }
 .obj--search .search-bar {
   display: flex;
@@ -414,7 +415,8 @@ img { max-width: 100%; display: block; }
   border-radius: 16px;
   padding: 18px 20px;
   box-shadow: 0 12px 48px rgba(0,67,112,0.13), 0 2px 8px rgba(0,0,0,0.04);
-  transform: rotate(-3deg);
+  --rot: -3deg;
+  transform: rotate(var(--rot));
 }
 .obj--chat .chat-header {
   display: flex;
@@ -490,7 +492,8 @@ img { max-width: 100%; display: block; }
   left: 20px;
   background: linear-gradient(135deg, #1a9fff, #6366f1);
   color: #fff;
-  transform: rotate(-8deg);
+  --rot: -8deg;
+  transform: rotate(var(--rot));
 }
 .obj--icon-gemini {
   bottom: 16%;
@@ -500,7 +503,8 @@ img { max-width: 100%; display: block; }
   font-size: 18px;
   width: 40px;
   height: 40px;
-  transform: rotate(5deg);
+  --rot: 5deg;
+  transform: rotate(var(--rot));
 }
 
 /* ---- TOP RIGHT: Recommendations card, partially off-screen ---- */
@@ -512,7 +516,8 @@ img { max-width: 100%; display: block; }
   border-radius: 14px;
   padding: 18px 20px;
   box-shadow: 0 12px 48px rgba(0,67,112,0.13), 0 2px 8px rgba(0,0,0,0.04);
-  transform: rotate(4deg);
+  --rot: 4deg;
+  transform: rotate(var(--rot));
 }
 .obj--results .results-header {
   font-size: 10px;
@@ -559,7 +564,8 @@ img { max-width: 100%; display: block; }
   font-size: 12px;
   font-weight: 600;
   box-shadow: 0 8px 32px rgba(0,67,112,0.18);
-  transform: rotate(3deg);
+  --rot: 3deg;
+  transform: rotate(var(--rot));
   display: flex;
   align-items: center;
   gap: 6px;
@@ -578,7 +584,8 @@ img { max-width: 100%; display: block; }
   border-radius: 14px;
   padding: 18px 20px;
   box-shadow: 0 12px 48px rgba(0,67,112,0.13), 0 2px 8px rgba(0,0,0,0.04);
-  transform: rotate(5deg);
+  --rot: 5deg;
+  transform: rotate(var(--rot));
 }
 .obj--facts .facts-header {
   font-size: 10px;
@@ -606,7 +613,8 @@ img { max-width: 100%; display: block; }
   right: 30px;
   background: linear-gradient(135deg, #d97706, #f59e0b);
   color: #fff;
-  transform: rotate(-6deg);
+  --rot: -6deg;
+  transform: rotate(var(--rot));
 }
 
 /* ---- BOTTOM CENTER: Question mark accent ---- */
@@ -618,7 +626,8 @@ img { max-width: 100%; display: block; }
   bottom: 4%;
   left: 50%;
   margin-left: -100px;
-  transform: rotate(12deg);
+  --rot: 12deg;
+  transform: rotate(var(--rot));
 }
 
 /* === SCROLL ANIMATIONS === */

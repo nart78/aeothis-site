@@ -130,13 +130,13 @@
       </div>
     </div>
     <!-- TOP LEFT: Search bar -->
-    <div class="floating-obj obj--search" data-parallax="0.04">
+    <div class="floating-obj obj--search" data-scatter="left" data-speed="0.15">
       <div class="search-label">Perplexity</div>
       <div class="search-bar">Best roofing company in Calgary</div>
     </div>
 
     <!-- LEFT MIDDLE: AI chat conversation -->
-    <div class="floating-obj obj--chat" data-parallax="-0.06">
+    <div class="floating-obj obj--chat" data-scatter="left" data-speed="0.2">
       <div class="chat-header">
         <div class="chat-avatar">G</div>
         <div class="chat-name">Gemini</div>
@@ -146,11 +146,11 @@
     </div>
 
     <!-- LEFT LOWER: AI platform icons -->
-    <div class="floating-obj obj--icon-badge obj--icon-perplexity" data-parallax="0.03">P</div>
-    <div class="floating-obj obj--icon-badge obj--icon-gemini" data-parallax="-0.05">G</div>
+    <div class="floating-obj obj--icon-badge obj--icon-perplexity" data-scatter="left" data-speed="0.12">P</div>
+    <div class="floating-obj obj--icon-badge obj--icon-gemini" data-scatter="left" data-speed="0.18">G</div>
 
     <!-- TOP RIGHT: Rankings card -->
-    <div class="floating-obj obj--results" data-parallax="0.05">
+    <div class="floating-obj obj--results" data-scatter="right" data-speed="0.15">
       <div class="results-header">AI Recommendations</div>
       <div class="results-item">
         <div class="results-rank results-rank--1">1</div>
@@ -167,10 +167,10 @@
     </div>
 
     <!-- RIGHT UPPER: Verified badge -->
-    <div class="floating-obj obj--badge" data-parallax="-0.04">AI Verified Source</div>
+    <div class="floating-obj obj--badge" data-scatter="right" data-speed="0.12">AI Verified Source</div>
 
     <!-- RIGHT MIDDLE: Brand facts card -->
-    <div class="floating-obj obj--facts" data-parallax="0.06">
+    <div class="floating-obj obj--facts" data-scatter="right" data-speed="0.2">
       <div class="facts-header">Brand Facts</div>
       <div class="facts-row"><span class="facts-label">AI Visibility</span><span class="facts-value facts-value--green">41/50</span></div>
       <div class="facts-row"><span class="facts-label">Schema</span><span class="facts-value facts-value--green">Complete</span></div>
@@ -179,10 +179,10 @@
     </div>
 
     <!-- RIGHT LOWER: Claude icon -->
-    <div class="floating-obj obj--icon-badge obj--icon-claude" data-parallax="0.03">C</div>
+    <div class="floating-obj obj--icon-badge obj--icon-claude" data-scatter="right" data-speed="0.14">C</div>
 
     <!-- BOTTOM: Question mark -->
-    <div class="floating-obj obj--question" data-parallax="-0.02">?</div>
+    <div class="floating-obj obj--question" data-scatter="down" data-speed="0.1">?</div>
   </section>
 
   <!-- STATS -->
@@ -552,27 +552,37 @@
       document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
     })();
 
-    // Parallax Scroll Effect
+    // Scatter Scroll Effect — objects drift outward on scroll
     (function() {
-      const parallaxEls = document.querySelectorAll('[data-parallax]');
-      if (!parallaxEls.length) return;
+      const scatterEls = document.querySelectorAll('[data-scatter]');
+      if (!scatterEls.length) return;
 
       const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
       const isMobile = window.innerWidth < 768;
       if (prefersReducedMotion || isMobile) return;
 
+      // Cache rotation values at init
+      const rotations = [];
+      scatterEls.forEach(el => {
+        rotations.push(getComputedStyle(el).getPropertyValue('--rot').trim() || '0deg');
+      });
+
       let ticking = false;
 
-      function updateParallax() {
+      function updateScatter() {
         const scrollY = window.scrollY;
 
-        parallaxEls.forEach(el => {
-          const speed = parseFloat(el.dataset.parallax) || 0.1;
-          const rect = el.parentElement.getBoundingClientRect();
-          const parentTop = rect.top + scrollY;
-          const offset = (scrollY - parentTop) * speed;
+        scatterEls.forEach((el, i) => {
+          const dir = el.dataset.scatter;
+          const speed = parseFloat(el.dataset.speed) || 0.15;
+          const offset = scrollY * speed;
 
-          el.style.transform = 'translate3d(0, ' + offset + 'px, 0)';
+          let tx = 0, ty = 0;
+          if (dir === 'left') { tx = -offset; ty = offset * 0.15; }
+          else if (dir === 'right') { tx = offset; ty = offset * 0.15; }
+          else if (dir === 'down') { tx = 0; ty = offset; }
+
+          el.style.transform = 'translate3d(' + tx + 'px, ' + ty + 'px, 0) rotate(' + rotations[i] + ')';
         });
 
         ticking = false;
@@ -580,7 +590,7 @@
 
       window.addEventListener('scroll', () => {
         if (!ticking) {
-          requestAnimationFrame(updateParallax);
+          requestAnimationFrame(updateScatter);
           ticking = true;
         }
       }, { passive: true });
