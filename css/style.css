@@ -523,13 +523,13 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
 /* Left side logos */
 .obj--icon-perplexity {
   bottom: 32%;
-  left: -10px;
+  left: 30px;
   --rot: -8deg;
   transform: rotate(var(--rot));
 }
 .obj--icon-gemini {
-  bottom: 16%;
-  left: 70px;
+  bottom: 14%;
+  left: 100px;
   width: 88px;
   height: 88px;
   --rot: 5deg;
@@ -537,7 +537,7 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
 }
 .obj--icon-deepseek {
   bottom: 5%;
-  left: -15px;
+  left: 30px;
   width: 80px;
   height: 80px;
   --rot: -4deg;
@@ -545,7 +545,7 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
 }
 .obj--icon-meta {
   bottom: 22%;
-  left: 120px;
+  left: 150px;
   width: 76px;
   height: 76px;
   --rot: 7deg;
@@ -555,13 +555,13 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
 /* Right side logos */
 .obj--icon-chatgpt {
   bottom: 32%;
-  right: -10px;
+  right: 30px;
   --rot: 6deg;
   transform: rotate(var(--rot));
 }
 .obj--icon-copilot {
-  bottom: 16%;
-  right: 80px;
+  bottom: 14%;
+  right: 110px;
   width: 88px;
   height: 88px;
   --rot: -5deg;
@@ -569,7 +569,7 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
 }
 .obj--icon-grok {
   bottom: 5%;
-  right: -15px;
+  right: 30px;
   width: 80px;
   height: 80px;
   --rot: 8deg;
@@ -679,7 +679,7 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
 /* ---- Claude icon ---- */
 .obj--icon-claude {
   bottom: 24%;
-  right: 130px;
+  right: 160px;
   width: 76px;
   height: 76px;
   --rot: -6deg;
