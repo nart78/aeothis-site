@@ -118,7 +118,28 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero">
+  <section class="hero" id="hero-grid">
+    <!-- Infinite Grid Background -->
+    <div class="grid-bg grid-bg--base" aria-hidden="true">
+      <svg width="100%" height="100%">
+        <defs>
+          <pattern id="grid-base" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,67,112,0.35)" stroke-width="0.5"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid-base)"/>
+      </svg>
+    </div>
+    <div class="grid-bg grid-bg--reveal" aria-hidden="true">
+      <svg width="100%" height="100%">
+        <defs>
+          <pattern id="grid-reveal" width="40" height="40" patternUnits="userSpaceOnUse">
+            <path d="M 40 0 L 0 0 0 40" fill="none" stroke="rgba(0,67,112,1)" stroke-width="0.8"/>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#grid-reveal)"/>
+      </svg>
+    </div>
     <div class="container">
       <img src="/images/AEOthis.png" alt="AEO This" class="hero__logo animate-on-scroll">
       <div class="hero__badge animate-on-scroll delay-1">Answer Engine Optimization</div>
@@ -556,6 +577,50 @@
       });
 
       document.querySelectorAll('.animate-on-scroll').forEach(el => observer.observe(el));
+    })();
+
+    // Infinite Grid — mouse-reveal + auto-scroll
+    (function() {
+      const hero = document.getElementById('hero-grid');
+      if (!hero) return;
+      const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (prefersReducedMotion) return;
+
+      const reveal = hero.querySelector('.grid-bg--reveal');
+      const basePattern = document.getElementById('grid-base');
+      const revealPattern = document.getElementById('grid-reveal');
+      if (!reveal || !basePattern || !revealPattern) return;
+
+      // Mouse tracking for reveal mask
+      let mouseInHero = false;
+      hero.addEventListener('mousemove', function(e) {
+        mouseInHero = true;
+        var rect = hero.getBoundingClientRect();
+        var x = e.clientX - rect.left;
+        var y = e.clientY - rect.top;
+        reveal.style.maskImage = 'radial-gradient(350px circle at ' + x + 'px ' + y + 'px, black, transparent)';
+        reveal.style.webkitMaskImage = reveal.style.maskImage;
+      });
+      hero.addEventListener('mouseleave', function() {
+        mouseInHero = false;
+        reveal.style.maskImage = 'radial-gradient(350px circle at 50% 50%, black, transparent)';
+        reveal.style.webkitMaskImage = reveal.style.maskImage;
+      });
+
+      // Infinite scroll animation
+      var offsetX = 0, offsetY = 0;
+      var speed = 0.3;
+
+      function animateGrid() {
+        offsetX = (offsetX + speed) % 40;
+        offsetY = (offsetY + speed) % 40;
+        basePattern.setAttribute('x', offsetX);
+        basePattern.setAttribute('y', offsetY);
+        revealPattern.setAttribute('x', offsetX);
+        revealPattern.setAttribute('y', offsetY);
+        requestAnimationFrame(animateGrid);
+      }
+      requestAnimationFrame(animateGrid);
     })();
 
     // Scatter Scroll Effect — objects drift outward on scroll

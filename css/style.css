@@ -135,6 +135,26 @@ img { max-width: 100%; display: block; }
   padding: 120px 0 80px;
   background: radial-gradient(ellipse 120% 60% at 50% 80%, rgba(0,67,112,0.04) 0%, rgba(247,250,252,0.5) 50%, var(--bg) 100%);
 }
+
+/* Infinite Grid Background */
+.grid-bg {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+.grid-bg--base {
+  opacity: 0.05;
+}
+.grid-bg--reveal {
+  opacity: 0.35;
+  -webkit-mask-image: radial-gradient(350px circle at 50% 50%, black, transparent);
+  mask-image: radial-gradient(350px circle at 50% 50%, black, transparent);
+}
+.hero .container {
+  position: relative;
+  z-index: 2;
+}
 .hero__logo {
   display: block;
   max-width: 280px;
@@ -367,7 +387,7 @@ img { max-width: 100%; display: block; }
 .floating-obj {
   position: absolute;
   pointer-events: none;
-  z-index: 0;
+  z-index: 1;
   will-change: transform;
   font-family: 'Inter', sans-serif;
 }
