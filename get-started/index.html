@@ -1,0 +1,1444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Get Started | AEOthis - Answer Engine Optimization</title>
+  <meta name="description" content="Start your AEO onboarding. Tell us about your business and we'll get you recommended by ChatGPT, Perplexity, Gemini, and Claude.">
+  <link rel="canonical" href="https://aeothis.com/get-started/">
+  <meta property="og:title" content="Get Started with AEOthis">
+  <meta property="og:description" content="Start your AEO onboarding. Tell us about your business and we'll get you recommended by AI.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://aeothis.com/get-started/">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --primary: #0a1628;
+      --accent: #004370;
+      --accent-dark: #003059;
+      --accent-light: #e8f0f8;
+      --text: #1a1f2e;
+      --text-light: #4a5568;
+      --text-muted: #8896a6;
+      --bg: #f7fafc;
+      --bg-white: #ffffff;
+      --border: #e2e8f0;
+      --success: #10b981;
+      --radius: 12px;
+      --radius-lg: 16px;
+      --shadow: 0 1px 3px rgba(30,45,82,0.06), 0 1px 2px rgba(30,45,82,0.04);
+      --shadow-md: 0 4px 12px rgba(30,45,82,0.08);
+      --msg-delay: 400ms;
+    }
+
+    html, body { height: 100%; }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--text);
+      background: var(--bg);
+      line-height: 1.6;
+      font-size: 15px;
+      -webkit-font-smoothing: antialiased;
+      display: flex;
+      overflow: hidden;
+    }
+
+    /* === SIDEBAR === */
+    .sidebar {
+      width: 280px;
+      min-width: 280px;
+      background: var(--accent-dark);
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      padding: 24px;
+      overflow-y: auto;
+    }
+
+    .sidebar__logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 32px;
+      text-decoration: none;
+    }
+
+    .sidebar__logo img {
+      height: 32px;
+      width: auto;
+    }
+
+    .sidebar__logo-text {
+      font-size: 18px;
+      font-weight: 700;
+      color: #fff;
+      letter-spacing: -0.3px;
+    }
+
+    .sidebar__title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+
+    /* Progress Steps */
+    .steps { list-style: none; margin-bottom: 32px; }
+
+    .steps li {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      font-size: 13px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.35);
+      transition: color 0.3s;
+    }
+
+    .steps li.active { color: #fff; }
+    .steps li.completed { color: rgba(255,255,255,0.6); }
+
+    .step-dot {
+      width: 24px;
+      height: 24px;
+      min-width: 24px;
+      border-radius: 50%;
+      border: 2px solid rgba(255,255,255,0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 11px;
+      font-weight: 600;
+      transition: all 0.3s;
+    }
+
+    .steps li.active .step-dot {
+      border-color: #60a5fa;
+      background: #60a5fa;
+      color: #fff;
+    }
+
+    .steps li.completed .step-dot {
+      border-color: var(--success);
+      background: var(--success);
+      color: #fff;
+    }
+
+    .steps li.completed .step-dot::after { content: "\2713"; }
+
+    /* Profile Card */
+    .profile-card {
+      background: rgba(255,255,255,0.06);
+      border: 1px solid rgba(255,255,255,0.08);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-top: auto;
+      display: none;
+    }
+
+    .profile-card.visible { display: block; }
+
+    .profile-card__title {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 12px;
+    }
+
+    .profile-card__row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 6px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+      font-size: 12px;
+    }
+
+    .profile-card__row:last-child { border-bottom: none; }
+    .profile-card__label { color: rgba(255,255,255,0.5); }
+    .profile-card__value { color: #fff; font-weight: 500; text-align: right; max-width: 60%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+    /* === MAIN CHAT AREA === */
+    .chat-container {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+    }
+
+    /* Top bar */
+    .chat-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 24px;
+      background: var(--bg-white);
+      border-bottom: 1px solid var(--border);
+      min-height: 60px;
+    }
+
+    .chat-header__left {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .chat-header__avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 14px;
+    }
+
+    .chat-header__info h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .chat-header__info span {
+      font-size: 12px;
+      color: var(--success);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .chat-header__info span::before {
+      content: "";
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--success);
+    }
+
+    .chat-header__back {
+      display: none;
+      background: none;
+      border: none;
+      color: var(--text-light);
+      font-size: 14px;
+      cursor: pointer;
+      padding: 8px;
+      text-decoration: none;
+    }
+
+    /* Messages area */
+    .messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .msg {
+      max-width: 540px;
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      font-size: 14px;
+      line-height: 1.6;
+      animation: msgIn 0.25s ease-out;
+      word-wrap: break-word;
+    }
+
+    @keyframes msgIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .msg--bot {
+      align-self: flex-start;
+      background: var(--bg-white);
+      color: var(--text);
+      box-shadow: var(--shadow);
+      border-bottom-left-radius: 4px;
+    }
+
+    .msg--user {
+      align-self: flex-end;
+      background: var(--accent);
+      color: #fff;
+      border-bottom-right-radius: 4px;
+    }
+
+    .msg--bot + .msg--bot { margin-top: 2px; border-top-left-radius: 4px; }
+    .msg--user + .msg--user { margin-top: 2px; border-top-right-radius: 4px; }
+
+    .msg--system {
+      align-self: center;
+      background: none;
+      color: var(--text-muted);
+      font-size: 12px;
+      font-weight: 500;
+      padding: 8px 16px;
+    }
+
+    .msg strong { color: var(--accent); font-weight: 600; }
+    .msg--user strong { color: #fff; }
+
+    .msg em {
+      color: var(--text-muted);
+      font-size: 13px;
+      display: block;
+      margin-top: 6px;
+    }
+
+    .msg--user em { color: rgba(255,255,255,0.7); }
+
+    .msg code {
+      background: rgba(0,67,112,0.08);
+      padding: 1px 5px;
+      border-radius: 3px;
+      font-size: 13px;
+      font-family: 'SF Mono', 'Fira Code', monospace;
+    }
+
+    /* Example box inside bot messages */
+    .msg__example {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-top: 8px;
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.5;
+    }
+
+    .msg__example-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      margin-bottom: 4px;
+    }
+
+    /* Typing indicator */
+    .typing-indicator {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 14px 18px;
+      align-self: flex-start;
+      animation: msgIn 0.2s ease-out;
+    }
+
+    .typing-indicator span {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #94a3b8;
+      animation: typingBounce 1.2s infinite;
+    }
+
+    .typing-indicator span:nth-child(2) { animation-delay: 0.15s; }
+    .typing-indicator span:nth-child(3) { animation-delay: 0.3s; }
+
+    @keyframes typingBounce {
+      0%, 60%, 100% { transform: translateY(0); opacity: 0.4; }
+      30% { transform: translateY(-6px); opacity: 1; }
+    }
+
+    /* === INPUT AREA === */
+    .input-area {
+      padding: 16px 24px;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+    }
+
+    /* Quick reply buttons */
+    .quick-replies {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 12px;
+    }
+
+    .quick-replies:empty { display: none; margin: 0; }
+
+    .quick-reply {
+      padding: 8px 16px;
+      border: 1.5px solid var(--accent);
+      border-radius: 20px;
+      background: var(--bg-white);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+      font-family: inherit;
+    }
+
+    .quick-reply:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    .quick-reply--skip {
+      border-color: var(--border);
+      color: var(--text-muted);
+    }
+
+    .quick-reply--skip:hover {
+      background: var(--border);
+      color: var(--text);
+    }
+
+    /* Input row */
+    .input-row {
+      display: flex;
+      gap: 8px;
+      align-items: flex-end;
+    }
+
+    .input-field {
+      flex: 1;
+      min-height: 44px;
+      max-height: 120px;
+      padding: 10px 16px;
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius);
+      font-family: inherit;
+      font-size: 14px;
+      color: var(--text);
+      resize: none;
+      outline: none;
+      transition: border-color 0.2s;
+      line-height: 1.5;
+    }
+
+    .input-field:focus { border-color: var(--accent); }
+
+    .input-field::placeholder { color: var(--text-muted); }
+
+    .input-field:disabled {
+      background: var(--bg);
+      cursor: not-allowed;
+    }
+
+    .send-btn {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border: none;
+      border-radius: var(--radius);
+      background: var(--accent);
+      color: #fff;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s;
+    }
+
+    .send-btn:hover { background: var(--accent-dark); }
+
+    .send-btn:disabled {
+      background: var(--border);
+      cursor: not-allowed;
+    }
+
+    .send-btn svg {
+      width: 18px;
+      height: 18px;
+      fill: currentColor;
+    }
+
+    .input-hint {
+      font-size: 11px;
+      color: var(--text-muted);
+      margin-top: 6px;
+      text-align: center;
+    }
+
+    /* Summary profile card in chat */
+    .summary-card {
+      background: var(--bg-white);
+      border: 1.5px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 20px;
+      margin: 8px 0;
+      max-width: 540px;
+      align-self: flex-start;
+      animation: msgIn 0.3s ease-out;
+      box-shadow: var(--shadow-md);
+    }
+
+    .summary-card__header {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-bottom: 16px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .summary-card__avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 10px;
+      background: var(--accent);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 700;
+      font-size: 18px;
+    }
+
+    .summary-card__name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .summary-card__url {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .summary-card__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .summary-card__item {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 10px 12px;
+    }
+
+    .summary-card__item-label {
+      font-size: 10px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      color: var(--text-muted);
+      margin-bottom: 2px;
+    }
+
+    .summary-card__item-value {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .summary-card__desc {
+      margin-top: 12px;
+      padding: 10px 12px;
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 13px;
+      color: var(--text-light);
+      line-height: 1.5;
+      font-style: italic;
+    }
+
+    /* === MOBILE === */
+    .mobile-header {
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      padding: 12px 16px;
+      background: var(--accent-dark);
+      color: #fff;
+    }
+
+    .mobile-header__logo {
+      font-size: 16px;
+      font-weight: 700;
+      color: #fff;
+      text-decoration: none;
+    }
+
+    .mobile-header__progress {
+      font-size: 12px;
+      color: rgba(255,255,255,0.6);
+    }
+
+    @media (max-width: 768px) {
+      body { flex-direction: column; }
+      .sidebar { display: none; }
+      .mobile-header { display: flex; }
+      .chat-header__back { display: block; }
+      .messages { padding: 16px; }
+      .input-area { padding: 12px 16px; }
+      .msg { max-width: 85%; }
+      .summary-card { max-width: 100%; }
+      .summary-card__grid { grid-template-columns: 1fr; }
+    }
+
+    /* === PROGRESS BAR (mobile) === */
+    .progress-bar {
+      height: 3px;
+      background: rgba(255,255,255,0.1);
+      width: 100%;
+    }
+
+    .progress-bar__fill {
+      height: 100%;
+      background: #60a5fa;
+      transition: width 0.4s ease;
+      border-radius: 2px;
+    }
+
+    /* Hide scrollbar but keep scrolling */
+    .messages::-webkit-scrollbar { width: 6px; }
+    .messages::-webkit-scrollbar-track { background: transparent; }
+    .messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+    .messages::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+  </style>
+</head>
+<body>
+
+  <!-- SIDEBAR (desktop) -->
+  <aside class="sidebar">
+    <a href="/" class="sidebar__logo">
+      <img src="/images/AEOthis.png" alt="AEOthis">
+    </a>
+
+    <div class="sidebar__title">Onboarding Progress</div>
+    <ul class="steps" id="steps">
+      <li class="active" data-step="identity"><span class="step-dot">1</span> Business Identity</li>
+      <li data-step="description"><span class="step-dot">2</span> AI Description</li>
+      <li data-step="background"><span class="step-dot">3</span> Company Background</li>
+      <li data-step="products"><span class="step-dot">4</span> Products & Services</li>
+      <li data-step="competitors"><span class="step-dot">5</span> Competitive Landscape</li>
+      <li data-step="queries"><span class="step-dot">6</span> AI Search Queries</li>
+      <li data-step="contact"><span class="step-dot">7</span> Contact & Social</li>
+      <li data-step="faqs"><span class="step-dot">8</span> FAQs & Wrap-Up</li>
+    </ul>
+
+    <div class="profile-card" id="profileCard">
+      <div class="profile-card__title">Client Profile</div>
+      <div id="profileRows"></div>
+    </div>
+  </aside>
+
+  <!-- MAIN -->
+  <div class="chat-container">
+    <!-- Mobile header -->
+    <div class="mobile-header">
+      <a href="/" class="mobile-header__logo">AEOthis</a>
+      <span class="mobile-header__progress" id="mobileProgress">Step 1 of 8</span>
+    </div>
+    <div class="progress-bar"><div class="progress-bar__fill" id="progressFill" style="width: 0%"></div></div>
+
+    <!-- Chat header -->
+    <div class="chat-header">
+      <div class="chat-header__left">
+        <a href="/" class="chat-header__back">&larr; Back</a>
+        <div class="chat-header__avatar">A</div>
+        <div class="chat-header__info">
+          <h3>AEOthis Onboarding</h3>
+          <span>Online</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Messages -->
+    <div class="messages" id="messages"></div>
+
+    <!-- Input -->
+    <div class="input-area">
+      <div class="quick-replies" id="quickReplies"></div>
+      <div class="input-row">
+        <textarea class="input-field" id="inputField" rows="1" placeholder="Type your answer..." disabled></textarea>
+        <button class="send-btn" id="sendBtn" disabled>
+          <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+        </button>
+      </div>
+      <div class="input-hint" id="inputHint"></div>
+    </div>
+  </div>
+
+<script>
+(function() {
+  'use strict';
+
+  // === DATA ===
+  const clientData = {
+    name: '',
+    website: '',
+    category: '',
+    description: '',
+    founded: '',
+    founder: '',
+    employee_count: '',
+    service_area: '',
+    products_services: [],
+    pricing: '',
+    competitors: [],
+    unique_selling_points: [],
+    certifications: [],
+    queries: [],
+    contact: { email: '', phone: '', address: '' },
+    social_links: {},
+    logo_url: '',
+    faqs: []
+  };
+
+  // Temp state for product being built
+  let currentProduct = {};
+  let productCount = 0;
+  let currentFaq = {};
+
+  // === DOM ===
+  const messagesEl = document.getElementById('messages');
+  const inputField = document.getElementById('inputField');
+  const sendBtn = document.getElementById('sendBtn');
+  const quickRepliesEl = document.getElementById('quickReplies');
+  const inputHint = document.getElementById('inputHint');
+  const stepsEl = document.getElementById('steps');
+  const profileCard = document.getElementById('profileCard');
+  const profileRows = document.getElementById('profileRows');
+  const progressFill = document.getElementById('progressFill');
+  const mobileProgress = document.getElementById('mobileProgress');
+
+  // === STATE ===
+  let currentStep = null;
+  let isProcessing = false;
+
+  // === HELPERS ===
+  function t(str) {
+    // Template interpolation
+    return str
+      .replace(/\[name\]/g, clientData.name || 'your business')
+      .replace(/\[category\]/g, clientData.category || 'your industry')
+      .replace(/\[product\]/g, currentProduct.name || 'this product');
+  }
+
+  function scrollToBottom() {
+    messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
+  }
+
+  function addMessage(text, type, extraHTML) {
+    const div = document.createElement('div');
+    div.className = 'msg msg--' + type;
+    div.innerHTML = extraHTML ? text + extraHTML : text;
+    messagesEl.appendChild(div);
+    scrollToBottom();
+    return div;
+  }
+
+  function showTyping() {
+    const div = document.createElement('div');
+    div.className = 'typing-indicator';
+    div.id = 'typingIndicator';
+    div.innerHTML = '<span></span><span></span><span></span>';
+    messagesEl.appendChild(div);
+    scrollToBottom();
+  }
+
+  function hideTyping() {
+    const el = document.getElementById('typingIndicator');
+    if (el) el.remove();
+  }
+
+  function delay(ms) {
+    return new Promise(r => setTimeout(r, ms));
+  }
+
+  async function botSay(text, extraHTML) {
+    showTyping();
+    // Variable delay based on message length
+    const ms = Math.min(300 + text.length * 3, 1200);
+    await delay(ms);
+    hideTyping();
+    return addMessage(text, 'bot', extraHTML);
+  }
+
+  function setInput(type, placeholder, hint) {
+    inputField.disabled = false;
+    sendBtn.disabled = false;
+    inputField.placeholder = placeholder || 'Type your answer...';
+    inputField.type = type === 'email' ? 'email' : 'text';
+    inputField.value = '';
+    inputField.rows = type === 'textarea' ? 3 : 1;
+    inputHint.textContent = hint || '';
+    inputField.focus();
+  }
+
+  function disableInput() {
+    inputField.disabled = true;
+    sendBtn.disabled = true;
+    inputField.value = '';
+    inputHint.textContent = '';
+  }
+
+  function showButtons(buttons) {
+    quickRepliesEl.innerHTML = '';
+    buttons.forEach(function(btn) {
+      const el = document.createElement('button');
+      el.className = 'quick-reply' + (btn.skip ? ' quick-reply--skip' : '');
+      el.textContent = btn.label;
+      el.addEventListener('click', function() {
+        if (isProcessing) return;
+        quickRepliesEl.innerHTML = '';
+        handleInput(btn.value, btn.label);
+      });
+      quickRepliesEl.appendChild(el);
+    });
+  }
+
+  function clearButtons() {
+    quickRepliesEl.innerHTML = '';
+  }
+
+  function updateStep(stepName) {
+    const stepsList = stepsEl.querySelectorAll('li');
+    let found = false;
+    let stepIndex = 0;
+    stepsList.forEach(function(li, i) {
+      if (li.dataset.step === stepName) {
+        li.className = 'active';
+        found = true;
+        stepIndex = i;
+      } else if (!found) {
+        li.className = 'completed';
+      } else {
+        li.className = '';
+      }
+    });
+    // Update progress
+    var pct = Math.round((stepIndex / 8) * 100);
+    progressFill.style.width = pct + '%';
+    mobileProgress.textContent = 'Step ' + (stepIndex + 1) + ' of 8';
+  }
+
+  function completeAllSteps() {
+    var stepsList = stepsEl.querySelectorAll('li');
+    stepsList.forEach(function(li) { li.className = 'completed'; });
+    progressFill.style.width = '100%';
+    mobileProgress.textContent = 'Complete!';
+  }
+
+  function updateProfile() {
+    var rows = [];
+    if (clientData.name) rows.push(['Business', clientData.name]);
+    if (clientData.website) rows.push(['Website', clientData.website]);
+    if (clientData.category) rows.push(['Category', clientData.category]);
+    if (clientData.founded) rows.push(['Founded', clientData.founded]);
+    if (clientData.products_services.length) rows.push(['Products', clientData.products_services.length + ' listed']);
+    if (clientData.competitors.length) rows.push(['Competitors', clientData.competitors.length + ' listed']);
+    if (clientData.queries.length) rows.push(['AI Queries', clientData.queries.length + ' listed']);
+
+    if (rows.length > 0) {
+      profileCard.classList.add('visible');
+      profileRows.innerHTML = rows.map(function(r) {
+        return '<div class="profile-card__row"><span class="profile-card__label">' + r[0] + '</span><span class="profile-card__value">' + r[1] + '</span></div>';
+      }).join('');
+    }
+  }
+
+  // === CONVERSATION FLOW ===
+
+  // Each step is a function that sends bot messages and waits for input
+  const steps = {
+
+    // --- WELCOME ---
+    welcome: async function() {
+      await delay(600);
+      await botSay("Hey! I'm the AEOthis onboarding assistant.");
+      await botSay("I'm going to walk you through a few questions about your business so we can start getting you recommended by AI assistants like ChatGPT, Perplexity, and Gemini.");
+      await botSay("Takes about 5-10 minutes. Ready?");
+      showButtons([
+        { label: "Let's go!", value: 'start' }
+      ]);
+      disableInput();
+      currentStep = 'welcome';
+    },
+
+    // --- PHASE 2: IDENTITY ---
+    q_name: async function() {
+      updateStep('identity');
+      await botSay("What's the name of your business?");
+      setInput('text', 'e.g. Acme Supplements');
+      currentStep = 'q_name';
+    },
+
+    q_website: async function() {
+      await botSay(t("Nice. What's <strong>[name]</strong>'s website URL?"));
+      setInput('url', 'e.g. acmesupplements.com');
+      currentStep = 'q_website';
+    },
+
+    q_category: async function() {
+      await botSay(t("In the words your customers would use, what does <strong>[name]</strong> do?"),
+        '<div class="msg__example"><div class="msg__example-label">Examples</div>"magnesium supplements" &bull; "Calgary roofing contractor" &bull; "B2B SaaS for project management"</div>');
+      setInput('text', 'e.g. magnesium supplements');
+      currentStep = 'q_category';
+    },
+
+    // --- PHASE 3: DESCRIPTION ---
+    q_description: async function() {
+      updateStep('description');
+      await botSay(t("This is the most important part."));
+      await botSay(t("Describe <strong>[name]</strong> in 1-2 neutral, factual sentences. Third-person voice, like a Wikipedia intro. This exact paragraph is what AI will quote when recommending you."),
+        '<div class="msg__example"><div class="msg__example-label">Example</div>"Acme Supplements is a U.S.-based manufacturer of third-party tested magnesium supplements, focusing on bioavailability and clinical-grade formulations."</div>');
+      await botSay("Tip: avoid marketing language. AI trusts neutral, factual descriptions. Not 'the best' or 'industry-leading.' Just the facts.");
+      setInput('textarea', 'Describe your business...', 'This becomes the core paragraph AI will cite');
+      currentStep = 'q_description';
+    },
+
+    // --- PHASE 4: BACKGROUND ---
+    q_founded: async function() {
+      updateStep('background');
+      await botSay(t("When was <strong>[name]</strong> founded?"));
+      setInput('text', 'e.g. 2018');
+      currentStep = 'q_founded';
+    },
+
+    q_founder: async function() {
+      await botSay(t("Who founded <strong>[name]</strong>?"));
+      setInput('text', 'e.g. Jane Smith');
+      currentStep = 'q_founder';
+    },
+
+    q_employees: async function() {
+      await botSay("How many employees? Just a rough range.");
+      disableInput();
+      showButtons([
+        { label: '1-5', value: '1-5' },
+        { label: '6-10', value: '6-10' },
+        { label: '11-25', value: '11-25' },
+        { label: '26-50', value: '26-50' },
+        { label: '51-100', value: '51-100' },
+        { label: '100+', value: '100+' }
+      ]);
+      currentStep = 'q_employees';
+    },
+
+    q_service_area: async function() {
+      await botSay("Where do you serve customers?",
+        '<div class="msg__example"><div class="msg__example-label">Examples</div>"United States and Canada" &bull; "Calgary, AB and surrounding areas" &bull; "Worldwide"</div>');
+      setInput('text', 'e.g. United States and Canada');
+      currentStep = 'q_service_area';
+    },
+
+    // --- PHASE 5: PRODUCTS ---
+    q_product_name: async function() {
+      updateStep('products');
+      currentProduct = {};
+      if (productCount === 0) {
+        await botSay(t("Let's talk about what you offer. What's your #1 product or service? The one you'd want AI to recommend first."));
+      } else {
+        await botSay("What's the name of this product/service?");
+      }
+      setInput('text', 'e.g. MagCalm Glycinate');
+      currentStep = 'q_product_name';
+    },
+
+    q_product_desc: async function() {
+      await botSay(t("Give me a one-line description of <strong>[product]</strong>."));
+      setInput('text', 'Brief description...');
+      currentStep = 'q_product_desc';
+    },
+
+    q_product_price: async function() {
+      await botSay(t("What does <strong>[product]</strong> cost?"), '<div class="msg__example"><div class="msg__example-label">Tip</div>A range is fine. "$29.99/bottle" or "starts at $500/month"</div>');
+      setInput('text', 'e.g. $29.99');
+      currentStep = 'q_product_price';
+    },
+
+    q_product_url: async function() {
+      await botSay(t("Is there a direct URL for <strong>[product]</strong> on your site?"));
+      setInput('url', 'e.g. https://yoursite.com/product');
+      showButtons([{ label: 'Skip', value: '__skip__', skip: true }]);
+      currentStep = 'q_product_url';
+    },
+
+    q_product_more: async function() {
+      productCount++;
+      if (productCount >= 6) {
+        await botSay("That's 6 products. Moving on!");
+        return steps.q_pricing();
+      }
+      await botSay("Want to add another product or service? (Up to " + (6 - productCount) + " more)");
+      disableInput();
+      showButtons([
+        { label: 'Add another', value: 'more' },
+        { label: "That's all", value: 'done' }
+      ]);
+      currentStep = 'q_product_more';
+    },
+
+    q_pricing: async function() {
+      await botSay("Any general pricing info? Ranges, subscription discounts, bundles?",
+        '<div class="msg__example"><div class="msg__example-label">Example</div>"Products range from $19.99 to $49.99. Subscribe-and-save discounts of 15%."</div>');
+      setInput('text', 'General pricing info...');
+      showButtons([{ label: 'Skip', value: '__skip__', skip: true }]);
+      currentStep = 'q_pricing';
+    },
+
+    // --- PHASE 6: COMPETITORS ---
+    q_competitors: async function() {
+      updateStep('competitors');
+      await botSay("Who are your top 3-5 competitors? These are the brands AI is probably recommending instead of you right now.");
+      await botSay("We'll audit these brands alongside yours to see who AI currently favors.");
+      setInput('textarea', 'One per line, or comma-separated...', 'e.g. Nature Made, NOW Foods, Life Extension');
+      currentStep = 'q_competitors';
+    },
+
+    q_usps: async function() {
+      await botSay(t("What makes <strong>[name]</strong> different from those competitors? Give me 3-5 specific, factual differentiators."),
+        '<div class="msg__example"><div class="msg__example-label">Be specific</div>Not "great quality." More like "every batch third-party tested with published Certificates of Analysis" or "24/7 emergency response within 30 minutes."</div>');
+      setInput('textarea', 'One differentiator per line...');
+      currentStep = 'q_usps';
+    },
+
+    q_certifications: async function() {
+      await botSay("Any certifications, awards, or third-party trust signals? AI heavily weights independent validation.",
+        '<div class="msg__example"><div class="msg__example-label">Examples</div>NSF Certified &bull; BBB A+ &bull; Google Guaranteed &bull; ISO 9001 &bull; Inc. 5000</div>');
+      setInput('text', 'Comma-separated...');
+      showButtons([{ label: 'None / Skip', value: '__skip__', skip: true }]);
+      currentStep = 'q_certifications';
+    },
+
+    // --- PHASE 7: QUERIES ---
+    q_queries: async function() {
+      updateStep('queries');
+      await botSay("What would your ideal customer ask ChatGPT or Perplexity when looking for what you sell? Give me 5-10 questions.",
+        '<div class="msg__example"><div class="msg__example-label">Examples</div>"What\'s the best magnesium supplement for sleep?"<br>"Best roofing company in Calgary"<br>"What project management tool is best for small teams?"</div>');
+      await botSay("Think about what someone would type into ChatGPT before buying. Not Google keywords. Full questions.");
+      setInput('textarea', 'One question per line...', 'These are the exact queries we\'ll track and optimize for');
+      currentStep = 'q_queries';
+    },
+
+    // --- PHASE 8: CONTACT ---
+    q_email: async function() {
+      updateStep('contact');
+      await botSay("Almost done. What's your business email?");
+      setInput('email', 'hello@yourcompany.com');
+      currentStep = 'q_email';
+    },
+
+    q_phone: async function() {
+      await botSay("Phone number?");
+      setInput('tel', '+1-555-555-5555');
+      showButtons([{ label: 'Skip', value: '__skip__', skip: true }]);
+      currentStep = 'q_phone';
+    },
+
+    q_address: async function() {
+      await botSay("Business address? (or just 'remote' if you're fully online)");
+      setInput('text', 'e.g. 123 Main St, Calgary, AB');
+      currentStep = 'q_address';
+    },
+
+    q_social: async function() {
+      await botSay("Drop any social media links. LinkedIn, Instagram, Facebook, X, YouTube.");
+      setInput('textarea', 'One link per line...');
+      showButtons([{ label: 'Skip', value: '__skip__', skip: true }]);
+      currentStep = 'q_social';
+    },
+
+    q_logo: async function() {
+      await botSay("Direct URL to your logo? PNG or SVG preferred.");
+      setInput('url', 'https://yoursite.com/logo.png');
+      showButtons([{ label: 'Skip', value: '__skip__', skip: true }]);
+      currentStep = 'q_logo';
+    },
+
+    // --- PHASE 9: FAQs ---
+    q_faqs: async function() {
+      updateStep('faqs');
+      await botSay("Last one. Any specific questions and answers you want on your AEO pages? We also auto-generate standard FAQs from your info.");
+      disableInput();
+      showButtons([
+        { label: 'Add a FAQ', value: 'add' },
+        { label: 'Skip, generate for me', value: 'skip', skip: true }
+      ]);
+      currentStep = 'q_faqs';
+    },
+
+    q_faq_question: async function() {
+      currentFaq = {};
+      await botSay("What's the question?");
+      setInput('text', 'e.g. What makes your product different?');
+      currentStep = 'q_faq_question';
+    },
+
+    q_faq_answer: async function() {
+      await botSay("And the answer?");
+      setInput('textarea', 'Type the answer...');
+      currentStep = 'q_faq_answer';
+    },
+
+    q_faq_more: async function() {
+      await botSay("Want to add another FAQ?");
+      disableInput();
+      showButtons([
+        { label: 'Add another', value: 'add' },
+        { label: "That's all", value: 'done' }
+      ]);
+      currentStep = 'q_faq_more';
+    },
+
+    // --- SUMMARY ---
+    summary: async function() {
+      completeAllSteps();
+      await botSay("That's everything I need! Here's your business profile:");
+
+      // Build summary card
+      var initial = clientData.name ? clientData.name.charAt(0).toUpperCase() : '?';
+      var summaryHTML = '<div class="summary-card">';
+      summaryHTML += '<div class="summary-card__header">';
+      summaryHTML += '<div class="summary-card__avatar">' + initial + '</div>';
+      summaryHTML += '<div><div class="summary-card__name">' + (clientData.name || 'Your Business') + '</div>';
+      summaryHTML += '<div class="summary-card__url">' + (clientData.website || '') + '</div></div></div>';
+      summaryHTML += '<div class="summary-card__grid">';
+
+      var items = [
+        ['Category', clientData.category],
+        ['Founded', clientData.founded],
+        ['Employees', clientData.employee_count],
+        ['Service Area', clientData.service_area],
+        ['Products', clientData.products_services.length + ' listed'],
+        ['Competitors', clientData.competitors.length + ' listed'],
+        ['AI Queries', clientData.queries.length + ' listed'],
+        ['Certifications', clientData.certifications.length > 0 ? clientData.certifications.length + ' listed' : 'None']
+      ];
+
+      items.forEach(function(item) {
+        if (item[1]) {
+          summaryHTML += '<div class="summary-card__item"><div class="summary-card__item-label">' + item[0] + '</div><div class="summary-card__item-value">' + item[1] + '</div></div>';
+        }
+      });
+
+      summaryHTML += '</div>';
+
+      if (clientData.description) {
+        summaryHTML += '<div class="summary-card__desc">"' + clientData.description + '"</div>';
+      }
+
+      summaryHTML += '</div>';
+
+      var cardDiv = document.createElement('div');
+      cardDiv.innerHTML = summaryHTML;
+      cardDiv.style.animation = 'msgIn 0.3s ease-out';
+      messagesEl.appendChild(cardDiv.firstChild);
+      scrollToBottom();
+
+      await delay(800);
+      await botSay("Our team will now:");
+      await botSay("<strong>1.</strong> Run your AI visibility audit across ChatGPT, Perplexity, Gemini, and Claude<br><strong>2.</strong> Build your AEO pages (Answer Hub, Brand Facts, schema markup)<br><strong>3.</strong> Set up ongoing monitoring");
+      await botSay("You'll hear from us within 2-3 business days. Welcome to AEOthis.");
+
+      // Submit the data
+      submitData();
+
+      disableInput();
+      inputHint.textContent = 'Onboarding complete. We\'ll be in touch!';
+    }
+  };
+
+  // === INPUT HANDLER ===
+  async function handleInput(value, displayText) {
+    if (isProcessing) return;
+    isProcessing = true;
+
+    var display = displayText || value;
+    if (value !== '__skip__' && display) {
+      addMessage(display, 'user');
+    } else if (value === '__skip__') {
+      addMessage('Skipped', 'user');
+    }
+
+    clearButtons();
+    disableInput();
+
+    // Route based on current step
+    switch (currentStep) {
+
+      case 'welcome':
+        await steps.q_name();
+        break;
+
+      // Identity
+      case 'q_name':
+        clientData.name = value.trim();
+        updateProfile();
+        await steps.q_website();
+        break;
+
+      case 'q_website':
+        var url = value.trim();
+        if (url && !url.match(/^https?:\/\//)) url = 'https://' + url;
+        clientData.website = url;
+        updateProfile();
+        await steps.q_category();
+        break;
+
+      case 'q_category':
+        clientData.category = value.trim();
+        updateProfile();
+        await botSay(t("Got it. <strong>[name]</strong> is in the <strong>[category]</strong> space. Let's make you the #1 AI recommendation for that."));
+        await delay(400);
+        await steps.q_description();
+        break;
+
+      // Description
+      case 'q_description':
+        clientData.description = value.trim();
+        await botSay(t("When someone asks an AI assistant about <strong>[category]</strong>, this is what it'll say about you. That's powerful."));
+        await delay(400);
+        await steps.q_founded();
+        break;
+
+      // Background
+      case 'q_founded':
+        clientData.founded = value.trim();
+        await steps.q_founder();
+        break;
+
+      case 'q_founder':
+        clientData.founder = value.trim();
+        await steps.q_employees();
+        break;
+
+      case 'q_employees':
+        clientData.employee_count = value;
+        await steps.q_service_area();
+        break;
+
+      case 'q_service_area':
+        clientData.service_area = value.trim();
+        updateProfile();
+        await steps.q_product_name();
+        break;
+
+      // Products
+      case 'q_product_name':
+        currentProduct.name = value.trim();
+        await steps.q_product_desc();
+        break;
+
+      case 'q_product_desc':
+        currentProduct.description = value.trim();
+        await steps.q_product_price();
+        break;
+
+      case 'q_product_price':
+        currentProduct.price = value.trim();
+        await steps.q_product_url();
+        break;
+
+      case 'q_product_url':
+        if (value !== '__skip__') {
+          var purl = value.trim();
+          if (purl && !purl.match(/^https?:\/\//)) purl = 'https://' + purl;
+          currentProduct.url = purl;
+        }
+        clientData.products_services.push(Object.assign({}, currentProduct));
+        updateProfile();
+        await steps.q_product_more();
+        break;
+
+      case 'q_product_more':
+        if (value === 'more') {
+          await steps.q_product_name();
+        } else {
+          await steps.q_pricing();
+        }
+        break;
+
+      case 'q_pricing':
+        if (value !== '__skip__') clientData.pricing = value.trim();
+        await steps.q_competitors();
+        break;
+
+      // Competitors
+      case 'q_competitors':
+        var comps = value.trim().split(/[,\n]+/).map(function(s) { return s.trim(); }).filter(Boolean);
+        clientData.competitors = comps;
+        updateProfile();
+        await steps.q_usps();
+        break;
+
+      case 'q_usps':
+        var usps = value.trim().split(/\n+/).map(function(s) { return s.trim(); }).filter(Boolean);
+        clientData.unique_selling_points = usps;
+        await steps.q_certifications();
+        break;
+
+      case 'q_certifications':
+        if (value !== '__skip__') {
+          var certs = value.trim().split(/[,\n]+/).map(function(s) { return s.trim(); }).filter(Boolean);
+          clientData.certifications = certs;
+        }
+        await steps.q_queries();
+        break;
+
+      // Queries
+      case 'q_queries':
+        var qs = value.trim().split(/\n+/).map(function(s) { return s.trim(); }).filter(Boolean);
+        clientData.queries = qs;
+        updateProfile();
+        await steps.q_email();
+        break;
+
+      // Contact
+      case 'q_email':
+        clientData.contact.email = value.trim();
+        await steps.q_phone();
+        break;
+
+      case 'q_phone':
+        if (value !== '__skip__') clientData.contact.phone = value.trim();
+        await steps.q_address();
+        break;
+
+      case 'q_address':
+        clientData.contact.address = value.trim();
+        await steps.q_social();
+        break;
+
+      case 'q_social':
+        if (value !== '__skip__') {
+          var links = value.trim().split(/\n+/).map(function(s) { return s.trim(); }).filter(Boolean);
+          var socials = {};
+          links.forEach(function(link) {
+            if (link.includes('linkedin')) socials.linkedin = link;
+            else if (link.includes('instagram')) socials.instagram = link;
+            else if (link.includes('facebook')) socials.facebook = link;
+            else if (link.includes('twitter') || link.includes('x.com')) socials.twitter = link;
+            else if (link.includes('youtube')) socials.youtube = link;
+            else socials.other = link;
+          });
+          clientData.social_links = socials;
+        }
+        await steps.q_logo();
+        break;
+
+      case 'q_logo':
+        if (value !== '__skip__') clientData.logo_url = value.trim();
+        await steps.q_faqs();
+        break;
+
+      // FAQs
+      case 'q_faqs':
+        if (value === 'add') {
+          await steps.q_faq_question();
+        } else {
+          await steps.summary();
+        }
+        break;
+
+      case 'q_faq_question':
+        currentFaq.question = value.trim();
+        await steps.q_faq_answer();
+        break;
+
+      case 'q_faq_answer':
+        currentFaq.answer = value.trim();
+        clientData.faqs.push(Object.assign({}, currentFaq));
+        await steps.q_faq_more();
+        break;
+
+      case 'q_faq_more':
+        if (value === 'add') {
+          await steps.q_faq_question();
+        } else {
+          await steps.summary();
+        }
+        break;
+    }
+
+    isProcessing = false;
+  }
+
+  // === FORM SUBMISSION ===
+  function submitData() {
+    // Save to localStorage as backup
+    try {
+      localStorage.setItem('aeothis_onboarding_' + Date.now(), JSON.stringify(clientData));
+    } catch(e) {}
+
+    // Submit via Formspree
+    var formData = new FormData();
+    formData.append('_subject', 'New AEO Onboarding: ' + clientData.name);
+    formData.append('business_name', clientData.name);
+    formData.append('website', clientData.website);
+    formData.append('category', clientData.category);
+    formData.append('description', clientData.description);
+    formData.append('founded', clientData.founded);
+    formData.append('founder', clientData.founder);
+    formData.append('employees', clientData.employee_count);
+    formData.append('service_area', clientData.service_area);
+    formData.append('products', JSON.stringify(clientData.products_services));
+    formData.append('pricing', clientData.pricing);
+    formData.append('competitors', clientData.competitors.join(', '));
+    formData.append('unique_selling_points', clientData.unique_selling_points.join(' | '));
+    formData.append('certifications', clientData.certifications.join(', '));
+    formData.append('queries', clientData.queries.join(' | '));
+    formData.append('email', clientData.contact.email);
+    formData.append('phone', clientData.contact.phone);
+    formData.append('address', clientData.contact.address);
+    formData.append('social_links', JSON.stringify(clientData.social_links));
+    formData.append('logo_url', clientData.logo_url);
+    formData.append('faqs', JSON.stringify(clientData.faqs));
+    formData.append('full_json', JSON.stringify(clientData, null, 2));
+
+    fetch('https://formspree.io/f/xkovedvd', {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).catch(function() {
+      // Silent fail - data is in localStorage
+    });
+  }
+
+  // === EVENT LISTENERS ===
+
+  // Send on click
+  sendBtn.addEventListener('click', function() {
+    var val = inputField.value.trim();
+    if (!val || isProcessing) return;
+    handleInput(val);
+  });
+
+  // Send on Enter (Shift+Enter for newline)
+  inputField.addEventListener('keydown', function(e) {
+    if (e.key === 'Enter' && !e.shiftKey) {
+      e.preventDefault();
+      var val = inputField.value.trim();
+      if (!val || isProcessing) return;
+      handleInput(val);
+    }
+  });
+
+  // Auto-resize textarea
+  inputField.addEventListener('input', function() {
+    this.style.height = 'auto';
+    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+  });
+
+  // === START ===
+  steps.welcome();
+
+})();
+</script>
+
+</body>
+</html>
