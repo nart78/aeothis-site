@@ -404,6 +404,19 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
   50% { opacity: 0; }
 }
 
+/* ---- AI Platform Cards ---- */
+.obj--card {
+  width: 260px;
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+}
+.obj--card img {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
 /* ---- TOP LEFT: Search bar, partially off-screen ---- */
 .obj--search {
   width: 280px;
