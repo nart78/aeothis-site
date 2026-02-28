@@ -1575,6 +1575,16 @@
     }).catch(function() {
       // Silent fail - data is in localStorage
     });
+
+    // Submit to webhook for automated AI audit
+    fetch('https://agents.johnnytran.ca/api/aeothis/submit', {
+      method: 'POST',
+      body: JSON.stringify(clientData),
+      headers: {
+        'Content-Type': 'application/json',
+        'X-AEO-Token': 'bEb4bQc3BKpAzcf3al_a3iUoifhSFdDqgF-yFHDoQGI'
+      }
+    }).catch(function() {});
   }
 
   // === EVENT LISTENERS ===
