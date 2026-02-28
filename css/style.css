@@ -406,7 +406,7 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
 
 /* ---- AI Platform Cards ---- */
 .obj--card {
-  width: 260px;
+  width: 380px;
   border-radius: var(--radius-lg);
   overflow: hidden;
   box-shadow: 0 12px 48px rgba(0,0,0,0.3);
@@ -418,26 +418,26 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
   display: block;
 }
 .obj--card-tl {
-  top: 8%;
-  left: -80px;
+  top: 6%;
+  left: 20px;
   --rot: -6deg;
   transform: rotate(var(--rot));
 }
 .obj--card-bl {
-  top: 42%;
-  left: -60px;
+  top: 48%;
+  left: 40px;
   --rot: -4deg;
   transform: rotate(var(--rot));
 }
 .obj--card-tr {
   top: 6%;
-  right: -70px;
+  right: 20px;
   --rot: 4deg;
   transform: rotate(var(--rot));
 }
 .obj--card-br {
-  top: 42%;
-  right: -80px;
+  top: 48%;
+  right: 40px;
   --rot: 5deg;
   transform: rotate(var(--rot));
 }
