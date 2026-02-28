@@ -691,9 +691,8 @@
       <li data-step="background"><span class="step-dot">3</span> Company Background</li>
       <li data-step="products"><span class="step-dot">4</span> Products & Services</li>
       <li data-step="competitors"><span class="step-dot">5</span> Competitive Landscape</li>
-      <li data-step="queries"><span class="step-dot">6</span> AI Search Queries</li>
-      <li data-step="contact"><span class="step-dot">7</span> Contact & Social</li>
-      <li data-step="faqs"><span class="step-dot">8</span> FAQs & Wrap-Up</li>
+      <li data-step="contact"><span class="step-dot">6</span> Contact & Social</li>
+      <li data-step="faqs"><span class="step-dot">7</span> FAQs & Wrap-Up</li>
     </ul>
 
     <div class="profile-card" id="profileCard">
@@ -1000,7 +999,6 @@
     if (clientData.founded) rows.push(['Founded', clientData.founded]);
     if (clientData.products_services.length) rows.push(['Products', clientData.products_services.length + ' listed']);
     if (clientData.competitors.length) rows.push(['Competitors', clientData.competitors.length + ' listed']);
-    if (clientData.queries.length) rows.push(['AI Queries', clientData.queries.length + ' listed']);
 
     if (rows.length > 0) {
       profileCard.classList.add('visible');
@@ -1171,16 +1169,7 @@
     },
 
     // --- PHASE 7: QUERIES ---
-    q_queries: async function() {
-      updateStep('queries');
-      await botSay("What would your ideal customer ask ChatGPT or Perplexity when looking for what you sell? Give me 5-10 questions.",
-        '<div class="msg__example"><div class="msg__example-label">Examples</div>"What\'s the best magnesium supplement for sleep?"<br>"Best roofing company in Calgary"<br>"What project management tool is best for small teams?"</div>');
-      await botSay("Think about what someone would type into ChatGPT before buying. Not Google keywords. Full questions.");
-      setInput('textarea', 'One question per line...', 'These are the exact queries we\'ll track and optimize for');
-      currentStep = 'q_queries';
-    },
-
-    // --- PHASE 8: CONTACT ---
+    // --- PHASE 7: CONTACT ---
     q_email: async function() {
       updateStep('contact');
       await botSay("Almost done. What's your business email?");
@@ -1275,7 +1264,6 @@
         ['Service Area', clientData.service_area],
         ['Products', clientData.products_services.length + ' listed'],
         ['Competitors', clientData.competitors.length + ' listed'],
-        ['AI Queries', clientData.queries.length + ' listed'],
         ['Certifications', clientData.certifications.length > 0 ? clientData.certifications.length + ' listed' : 'None']
       ];
 
@@ -1452,14 +1440,6 @@
           var certs = value.trim().split(/[,\n]+/).map(function(s) { return s.trim(); }).filter(Boolean);
           clientData.certifications = certs;
         }
-        await steps.q_queries();
-        break;
-
-      // Queries
-      case 'q_queries':
-        var qs = value.trim().split(/\n+/).map(function(s) { return s.trim(); }).filter(Boolean);
-        clientData.queries = qs;
-        updateProfile();
         await steps.q_email();
         break;
 
