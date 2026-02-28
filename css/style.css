@@ -80,7 +80,7 @@ img { max-width: 100%; display: block; }
 .nav__links a:hover { color: var(--accent); text-decoration: none; }
 
 /* Nav CTA button */
-.btn--nav { padding: 10px 24px; font-size: 14px; border-radius: 24px; }
+.btn--nav { padding: 10px 24px; font-size: 14px; border-radius: 24px; color: #fff !important; }
 
 /* === HAMBURGER === */
 .nav__hamburger {
