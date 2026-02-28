@@ -1104,7 +1104,7 @@
     },
 
     q_product_url: async function() {
-      await botSay(t("Is there a direct URL for <strong>[product]</strong> on your site?"));
+      await botSay(t("What's the direct URL for <strong>[product]</strong> on your site?"));
       setInput('url', 'e.g. https://yoursite.com/product');
       showButtons([{ label: 'Skip', value: '__skip__', skip: true }]);
       currentStep = 'q_product_url';
