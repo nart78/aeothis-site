@@ -503,6 +503,15 @@
       color: #fff;
       font-weight: 700;
       font-size: 18px;
+      overflow: hidden;
+      flex-shrink: 0;
+    }
+
+    .summary-card__avatar img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #fff;
     }
 
     .summary-card__name {
@@ -1245,9 +1254,12 @@
 
       // Build summary card
       var initial = clientData.name ? clientData.name.charAt(0).toUpperCase() : '?';
+      var avatarContent = clientData.logo_url
+        ? '<img src="' + clientData.logo_url + '" alt="' + (clientData.name || '') + ' logo" onerror="this.parentNode.textContent=\'' + initial + '\'">'
+        : initial;
       var summaryHTML = '<div class="summary-card">';
       summaryHTML += '<div class="summary-card__header">';
-      summaryHTML += '<div class="summary-card__avatar">' + initial + '</div>';
+      summaryHTML += '<div class="summary-card__avatar">' + avatarContent + '</div>';
       summaryHTML += '<div><div class="summary-card__name">' + (clientData.name || 'Your Business') + '</div>';
       summaryHTML += '<div class="summary-card__url">' + (clientData.website || '') + '</div></div></div>';
       summaryHTML += '<div class="summary-card__grid">';
