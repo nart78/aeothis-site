@@ -175,7 +175,7 @@ img { max-width: 100%; display: block; }
 }
 .hero h1 {
   font-size: 56px; line-height: 1.1;
-  font-weight: 900; color: var(--primary);
+  font-weight: 900; color: #fff;
   margin-bottom: 28px;
   letter-spacing: -0.03em;
 }
