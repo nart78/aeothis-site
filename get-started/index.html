@@ -17,21 +17,23 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --primary: #0a1628;
-      --accent: #004370;
-      --accent-dark: #003059;
-      --accent-light: #e8f0f8;
-      --text: #1a1f2e;
-      --text-light: #4a5568;
-      --text-muted: #8896a6;
-      --bg: #f7fafc;
-      --bg-white: #ffffff;
-      --border: #e2e8f0;
+      --primary: #000000;
+      --accent: #cb6ce6;
+      --accent-dark: #b84fd4;
+      --accent-light: rgba(203,108,230,0.12);
+      --cta: #7ed7ed;
+      --cta-dark: #5ec8e0;
+      --text: #ffffff;
+      --text-light: rgba(255,255,255,0.7);
+      --text-muted: rgba(255,255,255,0.45);
+      --bg: #000000;
+      --bg-white: #0a0a0a;
+      --border: rgba(255,255,255,0.1);
       --success: #10b981;
       --radius: 12px;
       --radius-lg: 16px;
-      --shadow: 0 1px 3px rgba(30,45,82,0.06), 0 1px 2px rgba(30,45,82,0.04);
-      --shadow-md: 0 4px 12px rgba(30,45,82,0.08);
+      --shadow: 0 1px 3px rgba(0,0,0,0.3), 0 1px 2px rgba(0,0,0,0.2);
+      --shadow-md: 0 4px 12px rgba(0,0,0,0.4);
       --msg-delay: 400ms;
     }
 
@@ -121,8 +123,8 @@
     }
 
     .steps li.active .step-dot {
-      border-color: #60a5fa;
-      background: #60a5fa;
+      border-color: #cb6ce6;
+      background: #cb6ce6;
       color: #fff;
     }
 
@@ -420,6 +422,7 @@
       font-family: inherit;
       font-size: 14px;
       color: var(--text);
+      background: rgba(255,255,255,0.05);
       resize: none;
       outline: none;
       transition: border-color 0.2s;
@@ -441,8 +444,8 @@
       min-width: 44px;
       border: none;
       border-radius: var(--radius);
-      background: var(--accent);
-      color: #fff;
+      background: var(--cta);
+      color: #000;
       cursor: pointer;
       display: flex;
       align-items: center;
@@ -450,7 +453,7 @@
       transition: background 0.15s;
     }
 
-    .send-btn:hover { background: var(--accent-dark); }
+    .send-btn:hover { background: var(--cta-dark); }
 
     .send-btn:disabled {
       background: var(--border);
@@ -511,7 +514,7 @@
       width: 100%;
       height: 100%;
       object-fit: contain;
-      background: #fff;
+      background: rgba(255,255,255,0.1);
     }
 
     .summary-card__name {
@@ -606,7 +609,7 @@
 
     .progress-bar__fill {
       height: 100%;
-      background: #60a5fa;
+      background: #cb6ce6;
       transition: width 0.4s ease;
       border-radius: 2px;
     }
@@ -629,8 +632,8 @@
     .welcome-cta__btn {
       display: inline-block;
       padding: 16px 48px;
-      background: var(--accent);
-      color: #fff;
+      background: var(--cta);
+      color: #000;
       font-family: inherit;
       font-size: 16px;
       font-weight: 600;
@@ -641,7 +644,7 @@
     }
 
     .welcome-cta__btn:hover {
-      background: var(--accent-dark);
+      background: var(--cta-dark);
       transform: translateY(-1px);
       box-shadow: var(--shadow-md);
     }
