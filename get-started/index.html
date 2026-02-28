@@ -1530,6 +1530,11 @@
   }
 
   // === FORM SUBMISSION ===
+  function esc(str) {
+    if (!str) return str;
+    return String(str).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  }
+
   function submitData() {
     // Save to localStorage as backup
     try {
@@ -1537,30 +1542,31 @@
     } catch(e) {}
 
     // Submit via Formspree
+    // All values are HTML-escaped to prevent Telegram notification parse errors
     var formData = new FormData();
-    formData.append('_subject', 'New AEO Onboarding: ' + clientData.name);
+    formData.append('_subject', 'New AEO Onboarding: ' + esc(clientData.name));
     formData.append('_replyto', clientData.contact.email);
-    formData.append('business_name', clientData.name);
-    formData.append('website', clientData.website);
-    formData.append('category', clientData.category);
-    formData.append('description', clientData.description);
-    formData.append('founded', clientData.founded);
-    formData.append('founder', clientData.founder);
-    formData.append('employees', clientData.employee_count);
-    formData.append('service_area', clientData.service_area);
-    formData.append('products', JSON.stringify(clientData.products_services));
-    formData.append('pricing', clientData.pricing);
-    formData.append('competitors', clientData.competitors.join(', '));
-    formData.append('unique_selling_points', clientData.unique_selling_points.join(' | '));
-    formData.append('certifications', clientData.certifications.join(', '));
-    formData.append('queries', clientData.queries.join(' | '));
-    formData.append('email', clientData.contact.email);
-    formData.append('phone', clientData.contact.phone);
-    formData.append('address', clientData.contact.address);
-    formData.append('social_links', JSON.stringify(clientData.social_links));
-    formData.append('logo_url', clientData.logo_url);
-    formData.append('faqs', JSON.stringify(clientData.faqs));
-    formData.append('full_json', JSON.stringify(clientData, null, 2));
+    formData.append('business_name', esc(clientData.name));
+    formData.append('website', esc(clientData.website));
+    formData.append('category', esc(clientData.category));
+    formData.append('description', esc(clientData.description));
+    formData.append('founded', esc(clientData.founded));
+    formData.append('founder', esc(clientData.founder));
+    formData.append('employees', esc(clientData.employee_count));
+    formData.append('service_area', esc(clientData.service_area));
+    formData.append('products', esc(JSON.stringify(clientData.products_services)));
+    formData.append('pricing', esc(clientData.pricing));
+    formData.append('competitors', esc(clientData.competitors.join(', ')));
+    formData.append('unique_selling_points', esc(clientData.unique_selling_points.join(' | ')));
+    formData.append('certifications', esc(clientData.certifications.join(', ')));
+    formData.append('queries', esc(clientData.queries.join(' | ')));
+    formData.append('email', esc(clientData.contact.email));
+    formData.append('phone', esc(clientData.contact.phone));
+    formData.append('address', esc(clientData.contact.address));
+    formData.append('social_links', esc(JSON.stringify(clientData.social_links)));
+    formData.append('logo_url', esc(clientData.logo_url));
+    formData.append('faqs', esc(JSON.stringify(clientData.faqs)));
+    formData.append('full_json', esc(JSON.stringify(clientData, null, 2)));
 
     fetch('https://formspree.io/f/xkovedvd', {
       method: 'POST',
