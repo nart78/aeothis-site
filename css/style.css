@@ -244,7 +244,7 @@ img { max-width: 100%; display: block; }
 }
 .problem__visual h4 { font-size: 14px; text-transform: uppercase; letter-spacing: 0.05em; color: var(--text-muted); margin-bottom: 24px; }
 .ai-result { background: rgba(255,255,255,0.05); border-radius: var(--radius); padding: 20px; margin-bottom: 12px; border: 1px solid var(--border); }
-.ai-result.winner { border-color: var(--success); background: rgba(16,185,129,0.1); }
+.ai-result.winner { border-color: var(--cta); background: rgba(126,215,237,0.1); }
 .ai-result__label { font-size: 13px; color: var(--text-muted); margin-bottom: 4px; }
 .ai-result__brand { font-weight: 700; font-size: 18px; }
 .ai-result__note { font-size: 14px; color: var(--text-light); }
