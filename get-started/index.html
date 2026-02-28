@@ -662,12 +662,12 @@
     <!-- Input -->
     <div class="input-area">
       <div class="quick-replies" id="quickReplies"></div>
-      <div class="input-row">
-        <textarea class="input-field" id="inputField" rows="1" placeholder="Type your answer..." disabled></textarea>
-        <button class="send-btn" id="sendBtn" disabled>
+      <form class="input-row" id="inputForm" autocomplete="off">
+        <input class="input-field" id="inputField" type="text" placeholder="Type your answer..." disabled>
+        <button type="submit" class="send-btn" id="sendBtn" disabled>
           <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
         </button>
-      </div>
+      </form>
       <div class="input-hint" id="inputHint"></div>
     </div>
   </div>
@@ -705,7 +705,7 @@
 
   // === DOM ===
   const messagesEl = document.getElementById('messages');
-  const inputField = document.getElementById('inputField');
+  var inputField = document.getElementById('inputField');
   const sendBtn = document.getElementById('sendBtn');
   const quickRepliesEl = document.getElementById('quickReplies');
   const inputHint = document.getElementById('inputHint');
@@ -769,14 +769,44 @@
   }
 
   function setInput(type, placeholder, hint) {
+    var form = document.getElementById('inputForm');
+    var oldField = document.getElementById('inputField');
+
+    // Swap between input and textarea based on type
+    var needsTextarea = (type === 'textarea');
+    var isTextarea = oldField.tagName === 'TEXTAREA';
+
+    if (needsTextarea && !isTextarea) {
+      var ta = document.createElement('textarea');
+      ta.className = 'input-field';
+      ta.id = 'inputField';
+      ta.rows = 3;
+      form.replaceChild(ta, oldField);
+      inputField = ta;
+      // Enter submits in textarea too (Shift+Enter for newline)
+      ta.addEventListener('keydown', function(e) {
+        if (e.key === 'Enter' && !e.shiftKey) {
+          e.preventDefault();
+          submitInput();
+        }
+      });
+    } else if (!needsTextarea && isTextarea) {
+      var inp = document.createElement('input');
+      inp.className = 'input-field';
+      inp.id = 'inputField';
+      inp.type = type === 'email' ? 'email' : 'text';
+      form.replaceChild(inp, oldField);
+      inputField = inp;
+    } else if (!needsTextarea) {
+      inputField.type = type === 'email' ? 'email' : 'text';
+    }
+
     inputField.disabled = false;
     sendBtn.disabled = false;
     inputField.placeholder = placeholder || 'Type your answer...';
-    inputField.type = type === 'email' ? 'email' : 'text';
     inputField.value = '';
-    inputField.rows = type === 'textarea' ? 3 : 1;
     inputHint.textContent = hint || '';
-    inputField.focus();
+    setTimeout(function() { inputField.focus(); }, 50);
   }
 
   function disableInput() {
@@ -1411,27 +1441,16 @@
 
   // === EVENT LISTENERS ===
 
-  // Send on click
-  sendBtn.addEventListener('click', function() {
+  function submitInput() {
     var val = inputField.value.trim();
     if (!val || isProcessing) return;
     handleInput(val);
-  });
+  }
 
-  // Send on Enter (Shift+Enter for newline)
-  inputField.addEventListener('keydown', function(e) {
-    if (e.key === 'Enter' && !e.shiftKey) {
-      e.preventDefault();
-      var val = inputField.value.trim();
-      if (!val || isProcessing) return;
-      handleInput(val);
-    }
-  });
-
-  // Auto-resize textarea
-  inputField.addEventListener('input', function() {
-    this.style.height = 'auto';
-    this.style.height = Math.min(this.scrollHeight, 120) + 'px';
+  // Form submit handles both Enter key and button click
+  document.getElementById('inputForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    submitInput();
   });
 
   // === START ===
