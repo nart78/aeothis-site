@@ -638,6 +638,29 @@
     }
 
     .input-area.hidden { display: none; }
+
+    /* Back button */
+    .back-btn {
+      width: 36px;
+      height: 36px;
+      min-width: 36px;
+      border: 1.5px solid var(--border);
+      border-radius: 50%;
+      background: var(--bg-white);
+      color: var(--text-muted);
+      font-size: 16px;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.15s;
+      font-family: inherit;
+      padding: 0;
+      line-height: 1;
+    }
+
+    .back-btn.visible { display: flex; }
+    .back-btn:hover { border-color: var(--accent); color: var(--accent); }
   </style>
 </head>
 <body>
@@ -699,6 +722,7 @@
     <div class="input-area hidden" id="inputArea">
       <div class="quick-replies" id="quickReplies"></div>
       <form class="input-row" id="inputForm" autocomplete="off">
+        <button type="button" class="back-btn" id="backBtn" title="Go back">&larr;</button>
         <input class="input-field" id="inputField" type="text" placeholder="Type your answer..." disabled>
         <button type="submit" class="send-btn" id="sendBtn" disabled>
           <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
@@ -739,6 +763,9 @@
   let productCount = 0;
   let currentFaq = {};
 
+  // History for back button
+  var stepHistory = [];
+
   // === DOM ===
   const messagesEl = document.getElementById('messages');
   var inputField = document.getElementById('inputField');
@@ -751,9 +778,62 @@
   const progressFill = document.getElementById('progressFill');
   const mobileProgress = document.getElementById('mobileProgress');
 
+  const backBtn = document.getElementById('backBtn');
+
   // === STATE ===
   let currentStep = null;
   let isProcessing = false;
+
+  // === HISTORY (back button) ===
+  function recordStep(stepName) {
+    stepHistory.push({
+      step: stepName,
+      msgIndex: messagesEl.children.length,
+      data: JSON.parse(JSON.stringify(clientData)),
+      productCount: productCount,
+      currentProduct: Object.assign({}, currentProduct),
+      currentFaq: Object.assign({}, currentFaq)
+    });
+    updateBackBtn();
+  }
+
+  function updateBackBtn() {
+    if (stepHistory.length >= 2) {
+      backBtn.classList.add('visible');
+    } else {
+      backBtn.classList.remove('visible');
+    }
+  }
+
+  async function goBack() {
+    if (isProcessing || stepHistory.length < 2) return;
+    isProcessing = true;
+
+    stepHistory.pop(); // Remove current step
+    var prev = stepHistory.pop(); // Remove previous (will be re-added when step re-runs)
+
+    // Truncate messages
+    while (messagesEl.children.length > prev.msgIndex) {
+      messagesEl.removeChild(messagesEl.lastChild);
+    }
+
+    // Restore data
+    Object.keys(prev.data).forEach(function(key) {
+      clientData[key] = prev.data[key];
+    });
+    productCount = prev.productCount;
+    currentProduct = Object.assign({}, prev.currentProduct);
+    currentFaq = Object.assign({}, prev.currentFaq);
+
+    // Restore UI
+    clearButtons();
+    updateProfile();
+    updateBackBtn();
+
+    // Re-run the step
+    await steps[prev.step]();
+    isProcessing = false;
+  }
 
   // === HELPERS ===
   function t(str) {
@@ -1160,6 +1240,7 @@
     // --- SUMMARY ---
     summary: async function() {
       completeAllSteps();
+      backBtn.classList.remove('visible');
       await botSay("That's everything I need! Here's your business profile:");
 
       // Build summary card
@@ -1214,6 +1295,16 @@
       inputHint.textContent = 'Onboarding complete. We\'ll be in touch!';
     }
   };
+
+  // Auto-wrap step functions to record history (except welcome and summary)
+  Object.keys(steps).forEach(function(name) {
+    if (name === 'welcome' || name === 'summary') return;
+    var original = steps[name];
+    steps[name] = async function() {
+      recordStep(name);
+      return original();
+    };
+  });
 
   // === INPUT HANDLER ===
   async function handleInput(value, displayText) {
@@ -1480,6 +1571,9 @@
     e.preventDefault();
     submitInput();
   });
+
+  // Back button
+  backBtn.addEventListener('click', function() { goBack(); });
 
   // Welcome button — hides CTA, shows input area, starts first question
   document.getElementById('welcomeBtn').addEventListener('click', async function() {
