@@ -409,6 +409,7 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
   width: 380px;
   border-radius: var(--radius-lg);
   overflow: hidden;
+  border: 1.5px solid var(--cta);
   box-shadow: 0 12px 48px rgba(0,0,0,0.3);
   backdrop-filter: blur(8px);
 }
