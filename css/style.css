@@ -409,12 +409,37 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
   width: 260px;
   border-radius: var(--radius-lg);
   overflow: hidden;
-  box-shadow: var(--shadow-lg);
+  box-shadow: 0 12px 48px rgba(0,0,0,0.3);
+  backdrop-filter: blur(8px);
 }
 .obj--card img {
   width: 100%;
   height: auto;
   display: block;
+}
+.obj--card-tl {
+  top: 8%;
+  left: -80px;
+  --rot: -6deg;
+  transform: rotate(var(--rot));
+}
+.obj--card-bl {
+  top: 42%;
+  left: -60px;
+  --rot: -4deg;
+  transform: rotate(var(--rot));
+}
+.obj--card-tr {
+  top: 6%;
+  right: -70px;
+  --rot: 4deg;
+  transform: rotate(var(--rot));
+}
+.obj--card-br {
+  top: 42%;
+  right: -80px;
+  --rot: 5deg;
+  transform: rotate(var(--rot));
 }
 
 /* ---- TOP LEFT: Search bar, partially off-screen ---- */
