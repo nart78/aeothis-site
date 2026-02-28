@@ -1539,6 +1539,7 @@
     // Submit via Formspree
     var formData = new FormData();
     formData.append('_subject', 'New AEO Onboarding: ' + clientData.name);
+    formData.append('_replyto', clientData.contact.email);
     formData.append('business_name', clientData.name);
     formData.append('website', clientData.website);
     formData.append('category', clientData.category);
