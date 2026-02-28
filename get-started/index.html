@@ -607,6 +607,37 @@
     .messages::-webkit-scrollbar-track { background: transparent; }
     .messages::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
     .messages::-webkit-scrollbar-thumb:hover { background: #cbd5e1; }
+
+    /* Welcome CTA */
+    .welcome-cta {
+      display: flex;
+      justify-content: center;
+      padding: 24px;
+      background: var(--bg-white);
+      border-top: 1px solid var(--border);
+    }
+
+    .welcome-cta__btn {
+      display: inline-block;
+      padding: 16px 48px;
+      background: var(--accent);
+      color: #fff;
+      font-family: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .welcome-cta__btn:hover {
+      background: var(--accent-dark);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-md);
+    }
+
+    .input-area.hidden { display: none; }
   </style>
 </head>
 <body>
@@ -659,8 +690,13 @@
     <!-- Messages -->
     <div class="messages" id="messages"></div>
 
-    <!-- Input -->
-    <div class="input-area">
+    <!-- Welcome CTA (shown first, then hidden) -->
+    <div class="welcome-cta" id="welcomeCta">
+      <button class="welcome-cta__btn" id="welcomeBtn">Let's go!</button>
+    </div>
+
+    <!-- Input (hidden until after welcome) -->
+    <div class="input-area hidden" id="inputArea">
       <div class="quick-replies" id="quickReplies"></div>
       <form class="input-row" id="inputForm" autocomplete="off">
         <input class="input-field" id="inputField" type="text" placeholder="Type your answer..." disabled>
@@ -892,10 +928,6 @@
       await botSay("Hey! I'm the AEOthis onboarding assistant.");
       await botSay("I'm going to walk you through a few questions about your business so we can start getting you recommended by AI assistants like ChatGPT, Perplexity, and Gemini.");
       await botSay("Takes about 5-10 minutes. Ready?");
-      showButtons([
-        { label: "Let's go!", value: 'start' }
-      ]);
-      disableInput();
       currentStep = 'welcome';
     },
 
@@ -1201,10 +1233,6 @@
     // Route based on current step
     switch (currentStep) {
 
-      case 'welcome':
-        await steps.q_name();
-        break;
-
       // Identity
       case 'q_name':
         clientData.name = value.trim();
@@ -1451,6 +1479,17 @@
   document.getElementById('inputForm').addEventListener('submit', function(e) {
     e.preventDefault();
     submitInput();
+  });
+
+  // Welcome button — hides CTA, shows input area, starts first question
+  document.getElementById('welcomeBtn').addEventListener('click', async function() {
+    if (isProcessing) return;
+    isProcessing = true;
+    addMessage("Let's go!", 'user');
+    document.getElementById('welcomeCta').style.display = 'none';
+    document.getElementById('inputArea').classList.remove('hidden');
+    await steps.q_name();
+    isProcessing = false;
   });
 
   // === START ===
