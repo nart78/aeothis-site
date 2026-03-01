@@ -698,7 +698,7 @@
       <img src="/images/AEOthis_logo_wide.png" alt="AEOthis">
     </a>
 
-    <div class="sidebar__title">Onboarding Progress</div>
+    <div class="sidebar__title">Launchpad Progress</div>
     <ul class="steps" id="steps">
       <li class="active" data-step="identity"><span class="step-dot">1</span> Business Identity</li>
       <li data-step="description"><span class="step-dot">2</span> AI Description</li>
@@ -730,7 +730,7 @@
         <a href="/" class="chat-header__back">&larr; Back</a>
         <div class="chat-header__avatar"><img src="/images/favicon-aeothis.png" alt="AEOthis" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
         <div class="chat-header__info">
-          <h3>AEO<em>this</em> Onboarding</h3>
+          <h3>AEO<em>this</em> Launchpad</h3>
           <span>Online</span>
         </div>
       </div>
@@ -1047,7 +1047,7 @@
     // --- WELCOME ---
     welcome: async function() {
       await delay(600);
-      await botSay("Hey! I'm <strong>Aeori</strong>, your AEO<span style='font-style:italic'>this</span> onboarding assistant.");
+      await botSay("Hey! I'm <strong>Aeori</strong>, your AEO<span style='font-style:italic'>this</span> Launchpad assistant.");
       await botSay("I'm going to walk you through a few questions about your business so we can start getting you recommended by AI assistants like ChatGPT, Perplexity, and Gemini.");
       await botSay("Takes about 5-10 minutes. Ready?");
       currentStep = 'welcome';
@@ -1336,7 +1336,7 @@
       submitData();
 
       disableInput();
-      inputHint.textContent = 'Onboarding complete. We\'ll be in touch!';
+      inputHint.textContent = 'Launchpad complete. We\'ll be in touch!';
     }
   };
 
@@ -1613,7 +1613,7 @@
     // All values are HTML-escaped to prevent Telegram notification parse errors
     var formData = new FormData();
     formData.append('_gotcha', '');
-    formData.append('_subject', 'New AEO Onboarding: ' + esc(clientData.name));
+    formData.append('_subject', 'New AEO Launchpad: ' + esc(clientData.name));
     formData.append('_replyto', clientData.contact.email);
     formData.append('business_name', esc(clientData.name));
     formData.append('website', esc(clientData.website));
