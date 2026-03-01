@@ -419,27 +419,27 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
   display: block;
 }
 .obj--card-tl {
-  top: 6%;
-  left: 20px;
-  --rot: -6deg;
+  top: 3%;
+  left: 10px;
+  --rot: -11deg;
   transform: rotate(var(--rot));
 }
 .obj--card-bl {
-  top: 48%;
-  left: 40px;
-  --rot: -4deg;
+  top: 52%;
+  left: 55px;
+  --rot: 3deg;
   transform: rotate(var(--rot));
 }
 .obj--card-tr {
-  top: 6%;
-  right: 20px;
-  --rot: 4deg;
+  top: 10%;
+  right: 35px;
+  --rot: 7deg;
   transform: rotate(var(--rot));
 }
 .obj--card-br {
-  top: 48%;
-  right: 40px;
-  --rot: 5deg;
+  top: 44%;
+  right: 5px;
+  --rot: -8deg;
   transform: rotate(var(--rot));
 }
 
