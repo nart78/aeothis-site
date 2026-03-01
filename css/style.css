@@ -930,7 +930,7 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
 
 /* === RESPONSIVE === */
 @media (max-width: 1400px) {
-  .obj--card { width: 220px; }
+  .obj--card { width: 220px !important; max-width: 220px !important; }
   .obj--question { font-size: 80% !important; }
 }
 
