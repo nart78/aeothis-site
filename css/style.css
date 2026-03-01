@@ -929,7 +929,7 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
 .breadcrumb span { margin: 0 6px; }
 
 /* === RESPONSIVE === */
-@media (max-width: 1100px) {
+@media (max-width: 1400px) {
   .obj--card { width: 220px; }
   .obj--question { font-size: 80% !important; }
 }
