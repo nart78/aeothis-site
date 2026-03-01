@@ -1577,6 +1577,9 @@
   }
 
   function submitData() {
+    console.log('submitData() called');
+    console.log('clientData:', JSON.stringify(clientData, null, 2));
+
     // Save to localStorage as backup
     try {
       localStorage.setItem('aeothis_onboarding_' + Date.now(), JSON.stringify(clientData));
