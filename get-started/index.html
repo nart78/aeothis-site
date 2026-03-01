@@ -1613,8 +1613,13 @@
       method: 'POST',
       body: formData,
       headers: { 'Accept': 'application/json' }
-    }).catch(function() {
-      // Silent fail - data is in localStorage
+    }).then(function(r) {
+      console.log('Formspree status:', r.status);
+      return r.json();
+    }).then(function(d) {
+      console.log('Formspree response:', d);
+    }).catch(function(e) {
+      console.error('Formspree error:', e);
     });
 
     // Submit to webhook for automated AI audit
@@ -1625,7 +1630,14 @@
         'Content-Type': 'application/json',
         'X-AEO-Token': 'bEb4bQc3BKpAzcf3al_a3iUoifhSFdDqgF-yFHDoQGI'
       }
-    }).catch(function() {});
+    }).then(function(r) {
+      console.log('Webhook status:', r.status);
+      return r.json();
+    }).then(function(d) {
+      console.log('Webhook response:', d);
+    }).catch(function(e) {
+      console.error('Webhook error:', e);
+    });
   }
 
   // === EVENT LISTENERS ===
