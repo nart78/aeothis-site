@@ -1167,16 +1167,22 @@
     // --- PHASE 6: COMPETITORS ---
     q_competitors: async function() {
       updateStep('competitors');
+      clientData.competitors = [];
       await botSay("Who are your top 3-5 competitors? These are the brands AI is probably recommending instead of you right now.");
       await botSay("We'll audit these brands alongside yours to see who AI currently favors.");
-      setInput('textarea', 'One per line, or comma-separated...', 'e.g. Nature Made, NOW Foods, Life Extension');
+      await botSay("Enter one competitor at a time.");
+      setInput('text', 'Competitor name...', 'e.g. Nature Made');
+      showButtons([{ label: "I'm Done", value: '__competitors_done__', skip: true }]);
       currentStep = 'q_competitors';
     },
 
     q_usps: async function() {
+      clientData.unique_selling_points = [];
       await botSay(t("What makes <strong>[name]</strong> different from those competitors? Give me 3-5 specific, factual differentiators."),
         '<div class="msg__example"><div class="msg__example-label">Be specific</div>Not "great quality." More like "every batch third-party tested with published Certificates of Analysis" or "24/7 emergency response within 30 minutes."</div>');
-      setInput('textarea', 'One differentiator per line...');
+      await botSay("Enter one differentiator at a time.");
+      setInput('text', 'A key differentiator...', '');
+      showButtons([{ label: "I'm Done", value: '__usps_done__', skip: true }]);
       currentStep = 'q_usps';
     },
 
@@ -1441,18 +1447,40 @@
         await steps.q_competitors();
         break;
 
-      // Competitors
+      // Competitors (one at a time)
       case 'q_competitors':
-        var comps = value.trim().split(/[,\n]+/).map(function(s) { return s.trim(); }).filter(Boolean);
-        clientData.competitors = comps;
-        updateProfile();
-        await steps.q_usps();
+        if (value === '__competitors_done__') {
+          if (clientData.competitors.length === 0) {
+            await botSay("No worries, we can research competitors for you.");
+          } else {
+            await botSay("Got it. " + clientData.competitors.length + " competitor" + (clientData.competitors.length > 1 ? "s" : "") + " noted.");
+          }
+          updateProfile();
+          await steps.q_usps();
+        } else {
+          clientData.competitors.push(value.trim());
+          await botSay("Added **" + value.trim() + "** (" + clientData.competitors.length + " so far).");
+          setInput('text', 'Next competitor...', '');
+          showButtons([{ label: "I'm Done", value: '__competitors_done__', skip: true }]);
+          currentStep = 'q_competitors';
+        }
         break;
 
       case 'q_usps':
-        var usps = value.trim().split(/\n+/).map(function(s) { return s.trim(); }).filter(Boolean);
-        clientData.unique_selling_points = usps;
-        await steps.q_certifications();
+        if (value === '__usps_done__') {
+          if (clientData.unique_selling_points.length === 0) {
+            await botSay("No problem, we'll identify differentiators during the audit.");
+          } else {
+            await botSay("Great. " + clientData.unique_selling_points.length + " differentiator" + (clientData.unique_selling_points.length > 1 ? "s" : "") + " noted.");
+          }
+          await steps.q_certifications();
+        } else {
+          clientData.unique_selling_points.push(value.trim());
+          await botSay("Added (" + clientData.unique_selling_points.length + " so far).");
+          setInput('text', 'Another differentiator...', '');
+          showButtons([{ label: "I'm Done", value: '__usps_done__', skip: true }]);
+          currentStep = 'q_usps';
+        }
         break;
 
       case 'q_certifications':
