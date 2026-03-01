@@ -929,6 +929,11 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
 .breadcrumb span { margin: 0 6px; }
 
 /* === RESPONSIVE === */
+@media (max-width: 1100px) {
+  .obj--card { width: 220px; }
+  .obj--question { font-size: 80% !important; }
+}
+
 @media (max-width: 768px) {
   .hero h1 { font-size: 36px; }
   .hero__sub { font-size: 17px; }
