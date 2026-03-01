@@ -956,7 +956,7 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
     align-items: center;
     justify-content: center;
     gap: 32px;
-    z-index: 100;
+    z-index: 102;
   }
   .nav__links.is-open { display: flex; }
   .nav__links a { font-size: 20px; }
