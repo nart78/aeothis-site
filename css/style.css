@@ -748,13 +748,25 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
   --rot: 12deg;
   transform: rotate(var(--rot));
 }
-.obj--q1 { top: 12%; left: 8%; font-size: 48px; --rot: -15deg; opacity: 0.06; }
-.obj--q2 { top: 10%; right: 12%; font-size: 72px; --rot: 8deg; opacity: 0.07; }
-.obj--q3 { top: 35%; left: 3%; font-size: 40px; --rot: 20deg; opacity: 0.05; }
-.obj--q4 { top: 30%; right: 5%; font-size: 56px; --rot: -10deg; opacity: 0.06; }
-.obj--q5 { bottom: 4%; left: 50%; margin-left: -100px; font-size: 64px; --rot: 12deg; opacity: 0.06; }
-.obj--q6 { top: 60%; left: 6%; font-size: 52px; --rot: -22deg; opacity: 0.05; }
-.obj--q7 { top: 55%; right: 8%; font-size: 44px; --rot: 18deg; opacity: 0.07; }
+/* Existing question marks — boosted opacity */
+.obj--q1 { top: 5%; left: 18%; font-size: 38px; --rot: -15deg; opacity: 0.15; }
+.obj--q2 { top: 4%; right: 18%; font-size: 52px; --rot: 8deg; opacity: 0.12; }
+.obj--q3 { top: 38%; left: 2%; font-size: 34px; --rot: 20deg; opacity: 0.14; }
+.obj--q4 { top: 36%; right: 2%; font-size: 42px; --rot: -10deg; opacity: 0.13; }
+.obj--q5 { bottom: 8%; left: 18%; font-size: 46px; --rot: 12deg; opacity: 0.12; }
+.obj--q6 { top: 72%; left: 5%; font-size: 36px; --rot: -22deg; opacity: 0.15; }
+.obj--q7 { top: 70%; right: 5%; font-size: 40px; --rot: 18deg; opacity: 0.13; }
+/* New question marks — filling gaps */
+.obj--q8 { top: 2%; left: 1%; font-size: 30px; --rot: 5deg; opacity: 0.11; }
+.obj--q9 { top: 2%; right: 1%; font-size: 28px; --rot: -7deg; opacity: 0.12; }
+.obj--q10 { top: 20%; left: 17%; font-size: 26px; --rot: 14deg; opacity: 0.1; }
+.obj--q11 { top: 22%; right: 17%; font-size: 32px; --rot: -18deg; opacity: 0.14; }
+.obj--q12 { top: 82%; left: 14%; font-size: 44px; --rot: -6deg; opacity: 0.12; }
+.obj--q13 { top: 80%; right: 14%; font-size: 36px; --rot: 22deg; opacity: 0.11; }
+.obj--q14 { top: 90%; left: 3%; font-size: 28px; --rot: 10deg; opacity: 0.13; }
+.obj--q15 { top: 88%; right: 3%; font-size: 32px; --rot: -14deg; opacity: 0.1; }
+.obj--q16 { bottom: 3%; right: 20%; font-size: 38px; --rot: 16deg; opacity: 0.14; }
+.obj--q17 { top: 48%; left: 1%; font-size: 24px; --rot: -25deg; opacity: 0.11; }
 
 /* === SCROLL ANIMATIONS === */
 .animate-on-scroll {
