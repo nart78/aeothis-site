@@ -215,6 +215,15 @@
       font-weight: 600;
       color: var(--text);
     }
+    .chat-header__info h3 em {
+      font-style: italic;
+      color: inherit;
+      display: inline;
+      margin: 0;
+    }
+    .mobile-header__logo em {
+      font-style: italic;
+    }
 
     .chat-header__info span {
       font-size: 12px;
@@ -710,7 +719,7 @@
   <div class="chat-container">
     <!-- Mobile header -->
     <div class="mobile-header">
-      <a href="/" class="mobile-header__logo">AEOthis</a>
+      <a href="/" class="mobile-header__logo">AEO<em>this</em></a>
       <span class="mobile-header__progress" id="mobileProgress">Step 1 of 8</span>
     </div>
     <div class="progress-bar"><div class="progress-bar__fill" id="progressFill" style="width: 0%"></div></div>
@@ -719,9 +728,9 @@
     <div class="chat-header">
       <div class="chat-header__left">
         <a href="/" class="chat-header__back">&larr; Back</a>
-        <div class="chat-header__avatar">A</div>
+        <div class="chat-header__avatar"><img src="/images/favicon-aeothis.png" alt="AEOthis" style="width: 100%; height: 100%; object-fit: cover; border-radius: 50%;"></div>
         <div class="chat-header__info">
-          <h3>AEOthis Onboarding</h3>
+          <h3>AEO<em>this</em> Onboarding</h3>
           <span>Online</span>
         </div>
       </div>
@@ -1036,7 +1045,7 @@
     // --- WELCOME ---
     welcome: async function() {
       await delay(600);
-      await botSay("Hey! I'm the AEOthis onboarding assistant.");
+      await botSay("Hey! I'm the AEO<span style='font-style:italic'>this</span> onboarding assistant.");
       await botSay("I'm going to walk you through a few questions about your business so we can start getting you recommended by AI assistants like ChatGPT, Perplexity, and Gemini.");
       await botSay("Takes about 5-10 minutes. Ready?");
       currentStep = 'welcome';
@@ -1316,7 +1325,7 @@
       await delay(800);
       await botSay("Our team will now:");
       await botSay("<strong>1.</strong> Run your AI visibility audit across ChatGPT, Perplexity, Gemini, and Claude<br><strong>2.</strong> Build your AEO pages (Answer Hub, Brand Facts, schema markup)<br><strong>3.</strong> Set up ongoing monitoring");
-      await botSay("You'll hear from us within 2-3 business days. Welcome to AEOthis.");
+      await botSay("You'll hear from us within 2-3 business days. Welcome to AEO<span style='font-style:italic'>this</span>.");
 
       // Submit the data
       submitData();
