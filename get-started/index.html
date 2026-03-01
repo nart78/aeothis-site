@@ -1612,6 +1612,7 @@
     // Submit via Formspree
     // All values are HTML-escaped to prevent Telegram notification parse errors
     var formData = new FormData();
+    formData.append('_gotcha', '');
     formData.append('_subject', 'New AEO Onboarding: ' + esc(clientData.name));
     formData.append('_replyto', clientData.contact.email);
     formData.append('business_name', esc(clientData.name));
