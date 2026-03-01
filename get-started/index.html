@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <title>Get Started | AEOthis - Answer Engine Optimization</title>
   <meta name="description" content="Start your AEO onboarding. Tell us about your business and we'll get you recommended by ChatGPT, Perplexity, Gemini, and Claude.">
   <link rel="icon" type="image/png" href="/images/favicon-aeothis.png">
@@ -38,7 +38,7 @@
       --msg-delay: 400ms;
     }
 
-    html, body { height: 100%; }
+    html, body { height: 100%; touch-action: pan-y; }
 
     body {
       font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -748,6 +748,12 @@
 <script>
 (function() {
   'use strict';
+
+  // Prevent pinch-zoom on mobile (chat UI breaks when zoomed)
+  document.addEventListener('gesturestart', function(e) { e.preventDefault(); });
+  document.addEventListener('touchmove', function(e) {
+    if (e.touches.length > 1) e.preventDefault();
+  }, { passive: false });
 
   // === DATA ===
   const clientData = {
