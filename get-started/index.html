@@ -886,7 +886,9 @@
   }
 
   function scrollToBottom() {
-    messagesEl.scrollTo({ top: messagesEl.scrollHeight, behavior: 'smooth' });
+    requestAnimationFrame(function() {
+      messagesEl.scrollTo({ top: messagesEl.scrollHeight + 200, behavior: 'smooth' });
+    });
   }
 
   function addMessage(text, type, extraHTML) {
@@ -1226,9 +1228,12 @@
     },
 
     q_social: async function() {
+      clientData.social_links = {};
       await botSay("Drop any social media links. LinkedIn, Instagram, Facebook, X, YouTube.");
-      setInput('textarea', 'One link per line...');
-      showButtons([{ label: 'Skip', value: '__skip__', skip: true }]);
+      await botSay("Enter one link at a time.");
+      setInput('text', 'https://');
+      inputField.value = 'https://';
+      showButtons([{ label: "I'm Done", value: '__social_done__', skip: true }]);
       currentStep = 'q_social';
     },
 
@@ -1517,20 +1522,39 @@
         break;
 
       case 'q_social':
-        if (value !== '__skip__') {
-          var links = value.trim().split(/\n+/).map(function(s) { return s.trim(); }).filter(Boolean);
-          var socials = {};
-          links.forEach(function(link) {
-            if (link.includes('linkedin')) socials.linkedin = link;
-            else if (link.includes('instagram')) socials.instagram = link;
-            else if (link.includes('facebook')) socials.facebook = link;
-            else if (link.includes('twitter') || link.includes('x.com')) socials.twitter = link;
-            else if (link.includes('youtube')) socials.youtube = link;
-            else socials.other = link;
-          });
-          clientData.social_links = socials;
+        if (value === '__social_done__') {
+          var linkCount = Object.keys(clientData.social_links).length;
+          if (linkCount === 0) {
+            await botSay("No problem, we can find your socials.");
+          } else {
+            await botSay("Got it. " + linkCount + " social link" + (linkCount > 1 ? "s" : "") + " saved.");
+          }
+          await steps.q_logo();
+        } else {
+          var link = value.trim();
+          if (link === 'https://' || link === 'http://') {
+            // Empty link, ignore
+            setInput('text', 'https://');
+            inputField.value = 'https://';
+            showButtons([{ label: "I'm Done", value: '__social_done__', skip: true }]);
+            currentStep = 'q_social';
+          } else {
+            var platform = 'other';
+            if (link.includes('linkedin')) platform = 'linkedin';
+            else if (link.includes('instagram')) platform = 'instagram';
+            else if (link.includes('facebook')) platform = 'facebook';
+            else if (link.includes('twitter') || link.includes('x.com')) platform = 'twitter';
+            else if (link.includes('youtube')) platform = 'youtube';
+            else if (link.includes('tiktok')) platform = 'tiktok';
+            clientData.social_links[platform] = link;
+            var label = platform.charAt(0).toUpperCase() + platform.slice(1);
+            await botSay("Added **" + label + "** (" + Object.keys(clientData.social_links).length + " so far).");
+            setInput('text', 'https://');
+            inputField.value = 'https://';
+            showButtons([{ label: "I'm Done", value: '__social_done__', skip: true }]);
+            currentStep = 'q_social';
+          }
         }
-        await steps.q_logo();
         break;
 
       case 'q_logo':
