@@ -419,14 +419,14 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
   display: block;
 }
 .obj--card-tl {
-  top: 3%;
+  top: 8%;
   left: 10px;
   --rot: -11deg;
   transform: rotate(var(--rot));
 }
 .obj--card-bl {
   top: 52%;
-  left: 55px;
+  left: 45px;
   --rot: 3deg;
   transform: rotate(var(--rot));
 }
