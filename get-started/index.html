@@ -780,6 +780,7 @@
   // === DATA ===
   const clientData = {
     name: '',
+    parent_company: '',
     website: '',
     category: '',
     description: '',
@@ -1061,6 +1062,14 @@
       currentStep = 'q_name';
     },
 
+    q_parent_company: async function() {
+      await botSay("Is your business part of a larger brand, franchise, or brokerage?",
+        '<div class="msg__example"><div class="msg__example-label">Examples</div>RE/MAX &bull; Keller Williams &bull; Century 21 &bull; State Farm &bull; Subway</div>');
+      setInput('text', 'e.g. RE/MAX');
+      showButtons([{ label: 'No, independent', value: '__skip__', skip: true }]);
+      currentStep = 'q_parent_company';
+    },
+
     q_website: async function() {
       await botSay(t("Nice. What's <strong>[name]</strong>'s website URL?"));
       setInput('url', 'e.g. acmesupplements.com');
@@ -1115,8 +1124,8 @@
 
     q_service_area: async function() {
       await botSay("Where do you serve customers?",
-        '<div class="msg__example"><div class="msg__example-label">Examples</div>"United States and Canada" &bull; "Calgary, AB and surrounding areas" &bull; "Worldwide"</div>');
-      setInput('text', 'e.g. United States and Canada');
+        '<div class="msg__example"><div class="msg__example-label">Examples</div>"United States and Canada" &bull; "Calgary, AB and surrounding areas" &bull; "NW Calgary, Tuscany, Scenic Acres" &bull; "Worldwide"</div>');
+      setInput('text', 'Cities, neighborhoods, or regions...');
       currentStep = 'q_service_area';
     },
 
@@ -1142,6 +1151,7 @@
     q_product_price: async function() {
       await botSay(t("What does <strong>[product]</strong> cost?"), '<div class="msg__example"><div class="msg__example-label">Tip</div>A range is fine. "$29.99/bottle" or "starts at $500/month"</div>');
       setInput('text', 'e.g. $29.99');
+      showButtons([{ label: 'Not applicable', value: '__skip__', skip: true }]);
       currentStep = 'q_product_price';
     },
 
@@ -1299,6 +1309,7 @@
 
       var items = [
         ['Category', clientData.category],
+        ['Brokerage/Franchise', clientData.parent_company],
         ['Founded', clientData.founded],
         ['Employees', clientData.employee_count],
         ['Service Area', clientData.service_area],
@@ -1372,6 +1383,11 @@
       case 'q_name':
         clientData.name = value.trim();
         updateProfile();
+        await steps.q_parent_company();
+        break;
+
+      case 'q_parent_company':
+        if (value !== '__skip__') clientData.parent_company = value.trim();
         await steps.q_website();
         break;
 
@@ -1433,7 +1449,7 @@
         break;
 
       case 'q_product_price':
-        currentProduct.price = value.trim();
+        if (value !== '__skip__') currentProduct.price = value.trim();
         await steps.q_product_url();
         break;
 
