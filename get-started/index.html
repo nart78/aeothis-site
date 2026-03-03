@@ -1203,10 +1203,12 @@
     },
 
     q_certifications: async function() {
+      clientData.certifications = [];
       await botSay("Any certifications, awards, or third-party trust signals? AI heavily weights independent validation.",
         '<div class="msg__example"><div class="msg__example-label">Examples</div>NSF Certified &bull; BBB A+ &bull; Google Guaranteed &bull; ISO 9001 &bull; Inc. 5000</div>');
-      setInput('text', 'Comma-separated...');
-      showButtons([{ label: 'None / Skip', value: '__skip__', skip: true }]);
+      await botSay("Enter one at a time.");
+      setInput('text', 'A certification or award...', '');
+      showButtons([{ label: 'None / Skip', value: '__certs_done__', skip: true }]);
       currentStep = 'q_certifications';
     },
 
@@ -1509,11 +1511,20 @@
         break;
 
       case 'q_certifications':
-        if (value !== '__skip__') {
-          var certs = value.trim().split(/[,\n]+/).map(function(s) { return s.trim(); }).filter(Boolean);
-          clientData.certifications = certs;
+        if (value === '__certs_done__') {
+          if (clientData.certifications.length === 0) {
+            await botSay("No problem, we'll move on.");
+          } else {
+            await botSay("Great. " + clientData.certifications.length + " certification" + (clientData.certifications.length > 1 ? "s" : "") + " noted.");
+          }
+          await steps.q_email();
+        } else {
+          clientData.certifications.push(value.trim());
+          await botSay("Added (" + clientData.certifications.length + " so far).");
+          setInput('text', 'Another certification...', '');
+          showButtons([{ label: "I'm Done", value: '__certs_done__', skip: true }]);
+          currentStep = 'q_certifications';
         }
-        await steps.q_email();
         break;
 
       // Contact
