@@ -668,26 +668,21 @@
 
     /* Back button */
     .back-btn {
-      width: 36px;
-      height: 36px;
-      min-width: 36px;
-      border: 1.5px solid var(--border);
-      border-radius: 50%;
-      background: var(--bg-white);
+      border: none;
+      background: none;
       color: var(--text-muted);
-      font-size: 16px;
+      font-size: 13px;
       cursor: pointer;
       display: none;
       align-items: center;
-      justify-content: center;
-      transition: all 0.15s;
+      transition: color 0.15s;
       font-family: inherit;
-      padding: 0;
-      line-height: 1;
+      padding: 4px 0;
+      white-space: nowrap;
     }
 
     .back-btn.visible { display: flex; }
-    .back-btn:hover { border-color: var(--accent); color: var(--accent); }
+    .back-btn:hover { color: var(--accent); }
   </style>
 </head>
 <body>
@@ -748,7 +743,7 @@
     <div class="input-area hidden" id="inputArea">
       <div class="quick-replies" id="quickReplies"></div>
       <form class="input-row" id="inputForm" autocomplete="off">
-        <button type="button" class="back-btn" id="backBtn" title="Go back">&larr;</button>
+        <button type="button" class="back-btn" id="backBtn" title="Go back">Go back</button>
         <input class="input-field" id="inputField" type="text" placeholder="Type your answer..." disabled>
         <button type="submit" class="send-btn" id="sendBtn" disabled>
           <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
