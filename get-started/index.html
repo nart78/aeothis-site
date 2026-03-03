@@ -1625,13 +1625,12 @@
       localStorage.setItem('aeothis_onboarding_' + Date.now(), JSON.stringify(clientData));
     } catch(e) {}
 
-    // Submit via Formspree
-    // All values are HTML-escaped to prevent Telegram notification parse errors
+    // Submit via Formspree (keep payload clean to avoid spam filter)
     var formData = new FormData();
-    formData.append('_gotcha', '');
     formData.append('_subject', 'New AEO Launchpad: ' + esc(clientData.name));
     formData.append('_replyto', clientData.contact.email);
     formData.append('business_name', esc(clientData.name));
+    formData.append('parent_company', esc(clientData.parent_company));
     formData.append('website', esc(clientData.website));
     formData.append('category', esc(clientData.category));
     formData.append('description', esc(clientData.description));
@@ -1639,19 +1638,20 @@
     formData.append('founder', esc(clientData.founder));
     formData.append('employees', esc(clientData.employee_count));
     formData.append('service_area', esc(clientData.service_area));
-    formData.append('products', esc(JSON.stringify(clientData.products_services)));
     formData.append('pricing', esc(clientData.pricing));
     formData.append('competitors', esc(clientData.competitors.join(', ')));
     formData.append('unique_selling_points', esc(clientData.unique_selling_points.join(' | ')));
     formData.append('certifications', esc(clientData.certifications.join(', ')));
-    formData.append('queries', esc(clientData.queries.join(' | ')));
     formData.append('email', esc(clientData.contact.email));
     formData.append('phone', esc(clientData.contact.phone));
     formData.append('address', esc(clientData.contact.address));
-    formData.append('social_links', esc(JSON.stringify(clientData.social_links)));
-    formData.append('logo_url', esc(clientData.logo_url));
-    formData.append('faqs', esc(JSON.stringify(clientData.faqs)));
-    formData.append('full_json', esc(JSON.stringify(clientData, null, 2)));
+    // Products, social links, FAQs, and logo are in the webhook payload (full JSON).
+    // Keeping Formspree lightweight to avoid spam filter triggers.
+    var productNames = clientData.products_services.map(function(p) { return p.name || ''; }).filter(Boolean).join(', ');
+    if (productNames) formData.append('products', esc(productNames));
+    var socialList = Object.keys(clientData.social_links).map(function(k) { return k + ': ' + clientData.social_links[k]; }).join(', ');
+    if (socialList) formData.append('social_links', esc(socialList));
+    if (clientData.logo_url) formData.append('logo_url', esc(clientData.logo_url));
 
     fetch('https://formspree.io/f/xkovedvd', {
       method: 'POST',
