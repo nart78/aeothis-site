@@ -25,12 +25,12 @@
   ],
   "pricing": {
     "starter": {
-      "price": "$1,500/month",
+      "price": "$300/month",
       "minimumTerm": "3 months",
       "includes": "25 query intent map, 1 answer hub, brand facts, schema markup, monthly report"
     },
     "growth": {
-      "price": "$3,000/month",
+      "price": "$1,000/month",
       "minimumTerm": "3 months",
       "includes": "50+ query intent map, 3 answer hubs, brand facts, full schema, citation campaign, AI shopping, weekly monitoring"
     },
