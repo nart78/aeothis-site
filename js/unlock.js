@@ -62,7 +62,7 @@
     }
 
     document.body.classList.remove('is-locked');
-    gate.classList.add('is-unlocked');
+    gate.remove();
 
     // Re-init scroll animations
     initAnimations();
