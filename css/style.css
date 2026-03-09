@@ -1608,7 +1608,9 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
 }
 
 .access-gate__logo {
-  height: 32px;
+  max-width: 300px;
+  width: 100%;
+  height: auto;
   margin-bottom: 48px;
 }
 
