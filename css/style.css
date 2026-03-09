@@ -1582,4 +1582,128 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
   .onboard-hero__title { font-size: 28px; }
   .onboard-step { padding: 28px 20px; }
   .onboard-step__title { font-size: 18px; }
+
+  /* Access gate mobile */
+  .access-gate__inputs { gap: 8px; }
+  .access-gate__digit { width: 44px; height: 56px; font-size: 24px; }
+  .access-gate__client { font-size: 18px; }
+}
+
+/* ── Access Gate ── */
+
+.access-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #050505;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  padding: 24px;
+}
+
+.access-gate.is-unlocked {
+  display: none;
+}
+
+.access-gate__logo {
+  height: 32px;
+  margin-bottom: 48px;
+}
+
+.access-gate__client {
+  font-size: 22px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 8px;
+  text-align: center;
+}
+
+.access-gate__heading {
+  font-size: 16px;
+  color: var(--text-light);
+  margin-bottom: 32px;
+  font-weight: 400;
+}
+
+.access-gate__inputs {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+.access-gate__digit {
+  width: 52px;
+  height: 64px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  color: var(--text);
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+  font-family: inherit;
+  outline: none;
+  transition: border-color 0.2s;
+  -moz-appearance: textfield;
+}
+
+.access-gate__digit::-webkit-outer-spin-button,
+.access-gate__digit::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.access-gate__digit:focus {
+  border-color: var(--accent);
+}
+
+.access-gate__digit--error {
+  border-color: #e74c3c;
+  animation: gate-shake 0.4s ease;
+}
+
+.access-gate__btn {
+  background: var(--cta);
+  color: #050505;
+  border: none;
+  padding: 14px 48px;
+  border-radius: var(--radius);
+  font-size: 16px;
+  font-weight: 600;
+  font-family: inherit;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.access-gate__btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+}
+
+.access-gate__btn:not(:disabled):hover {
+  opacity: 0.85;
+}
+
+.access-gate__error {
+  color: #e74c3c;
+  font-size: 14px;
+  margin-top: 16px;
+  min-height: 20px;
+}
+
+@keyframes gate-shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-8px); }
+  40% { transform: translateX(8px); }
+  60% { transform: translateX(-6px); }
+  80% { transform: translateX(6px); }
+}
+
+/* Hide proposal content while locked */
+body.is-locked > nav,
+body.is-locked > main,
+body.is-locked > footer {
+  display: none;
 }
