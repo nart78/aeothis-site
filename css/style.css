@@ -1130,6 +1130,154 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
   padding: 20px 56px;
 }
 
+/* ── Proposal Analysis Details ── */
+
+.proposal-platform {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  margin: 32px 0;
+}
+
+.proposal-platform__card {
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 32px;
+  text-align: center;
+}
+
+.proposal-platform__name {
+  font-size: 18px;
+  font-weight: 700;
+  margin-bottom: 16px;
+  color: var(--text);
+}
+
+.proposal-platform__stat {
+  font-size: 36px;
+  font-weight: 900;
+  color: var(--accent);
+}
+
+.proposal-platform__label {
+  font-size: 13px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  margin-top: 4px;
+}
+
+.proposal-leaderboard {
+  max-width: 600px;
+  margin: 32px auto;
+}
+
+.proposal-leaderboard__row {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.proposal-leaderboard__rank {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--text-muted);
+  width: 24px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.proposal-leaderboard__name {
+  font-size: 15px;
+  font-weight: 600;
+  width: 180px;
+  flex-shrink: 0;
+  color: var(--text-light);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.proposal-leaderboard__name--client {
+  color: var(--accent);
+}
+
+.proposal-leaderboard__bar-wrap {
+  flex: 1;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 6px;
+  height: 28px;
+  overflow: hidden;
+  position: relative;
+}
+
+.proposal-leaderboard__bar {
+  height: 100%;
+  border-radius: 6px;
+  background: var(--border);
+  transition: width 1s ease;
+}
+
+.proposal-leaderboard__bar--client {
+  background: var(--accent);
+}
+
+.proposal-leaderboard__count {
+  font-size: 13px;
+  color: var(--text-muted);
+  width: 80px;
+  text-align: right;
+  flex-shrink: 0;
+}
+
+.proposal-gap {
+  margin: 32px auto;
+  max-width: 700px;
+}
+
+.proposal-gap__row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+}
+
+.proposal-gap__row:last-child {
+  border-bottom: none;
+}
+
+.proposal-gap__query {
+  font-size: 15px;
+  color: var(--text-light);
+  flex: 1;
+}
+
+.proposal-gap__status {
+  font-size: 13px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  padding: 4px 12px;
+  border-radius: 20px;
+  flex-shrink: 0;
+  margin-left: 16px;
+}
+
+.proposal-gap__status--missing {
+  color: #ff6b6b;
+  background: rgba(255, 107, 107, 0.1);
+  border: 1px solid rgba(255, 107, 107, 0.2);
+}
+
+.proposal-gap__status--found {
+  color: #51cf66;
+  background: rgba(81, 207, 102, 0.1);
+  border: 1px solid rgba(81, 207, 102, 0.2);
+}
+
 /* === RESPONSIVE === */
 @media (max-width: 1400px) {
   .obj--card { width: 220px !important; max-width: 220px !important; }
@@ -1187,4 +1335,9 @@ a.layer-card { text-decoration: none; color: inherit; display: block; }
   .proposal-month { padding: 32px 24px; }
   .proposal-includes { grid-template-columns: 1fr; }
   .proposal-invest__price { font-size: 48px; }
+  .proposal-platform { grid-template-columns: 1fr; }
+  .proposal-leaderboard__name { width: 120px; font-size: 13px; }
+  .proposal-leaderboard__count { width: 60px; font-size: 12px; }
+  .proposal-gap__row { flex-direction: column; align-items: flex-start; gap: 8px; }
+  .proposal-gap__status { margin-left: 0; }
 }
