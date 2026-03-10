@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome Aboard - Zelos Investment Counsel | AEOthis</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="/images/favicon-aeothis.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../css/style.css?v=20260310">
+  <style>
+    .onboard-hero { padding: 80px 0 48px; text-align: center; }
+    .onboard-hero__logo { max-width: 180px; margin-bottom: 24px; }
+    .onboard-hero__title { font-size: 2.4rem; font-weight: 800; margin-bottom: 12px; }
+    .onboard-hero__sub { font-size: 1.15rem; color: var(--text-light, #94a3b8); }
+    .onboard-step { background: var(--card-bg, #1e1e2e); border: 1px solid var(--border, #2a2a3e); border-radius: 16px; padding: 40px; margin-bottom: 24px; max-width: 680px; margin-left: auto; margin-right: auto; }
+    .onboard-step__number { display: inline-flex; align-items: center; justify-content: center; width: 36px; height: 36px; border-radius: 50%; background: var(--accent, #cb6ce6); color: #fff; font-weight: 700; font-size: 1rem; margin-bottom: 16px; }
+    .onboard-step__title { font-size: 1.4rem; font-weight: 700; margin-bottom: 8px; }
+    .onboard-step__desc { color: var(--text-light, #94a3b8); margin-bottom: 12px; line-height: 1.7; }
+    .onboard-step__desc code { background: rgba(203, 108, 230, 0.15); padding: 2px 8px; border-radius: 4px; font-size: 0.95em; color: var(--accent, #cb6ce6); }
+    .onboard-step__why { font-size: 0.92rem; color: var(--text-light, #94a3b8); opacity: 0.8; margin-bottom: 20px; line-height: 1.7; }
+    .onboard-howto { margin-bottom: 24px; }
+    .onboard-howto__toggle { display: inline-flex; align-items: center; gap: 6px; background: none; border: 1px solid var(--border, #2a2a3e); color: var(--accent, #cb6ce6); padding: 8px 16px; border-radius: 8px; cursor: pointer; font-size: 0.92rem; font-family: inherit; transition: background 0.2s; }
+    .onboard-howto__toggle:hover { background: rgba(203, 108, 230, 0.1); }
+    .onboard-howto__chevron { font-size: 0.7em; transition: transform 0.2s; }
+    .onboard-howto.is-open .onboard-howto__chevron { transform: rotate(180deg); }
+    .onboard-howto__content { display: none; margin-top: 16px; padding: 20px; background: rgba(0, 0, 0, 0.2); border-radius: 10px; font-size: 0.93rem; line-height: 1.8; }
+    .onboard-howto.is-open .onboard-howto__content { display: block; }
+    .onboard-howto__content ol { padding-left: 20px; margin: 0; }
+    .onboard-howto__content li { margin-bottom: 8px; color: var(--text-light, #94a3b8); }
+    .onboard-howto__content code { background: rgba(203, 108, 230, 0.15); padding: 2px 8px; border-radius: 4px; font-size: 0.95em; color: var(--accent, #cb6ce6); }
+    .onboard-input { width: 100%; padding: 14px 18px; border: 1px solid var(--border, #2a2a3e); border-radius: 10px; background: rgba(0, 0, 0, 0.3); color: #fff; font-size: 1rem; font-family: inherit; outline: none; transition: border-color 0.2s; }
+    .onboard-input:focus { border-color: var(--accent, #cb6ce6); }
+    .onboard-input::placeholder { color: rgba(255, 255, 255, 0.3); }
+    .onboard-checkbox { display: flex; align-items: center; gap: 10px; cursor: pointer; font-size: 0.95rem; color: var(--text-light, #94a3b8); }
+    .onboard-checkbox input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent, #cb6ce6); cursor: pointer; }
+    .onboard-submit { text-align: center; max-width: 680px; margin: 32px auto 0; }
+    .onboard-submit .btn { min-width: 240px; }
+    .onboard-submit .btn:disabled { opacity: 0.4; cursor: not-allowed; }
+    .onboard-confirm { display: none; text-align: center; padding: 80px 20px; max-width: 600px; margin: 0 auto; }
+    .onboard-confirm.is-visible { display: block; }
+    .onboard-confirm__check { width: 72px; height: 72px; border-radius: 50%; background: var(--accent, #cb6ce6); color: #fff; font-size: 2rem; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 24px; }
+    .onboard-confirm__title { font-size: 2rem; font-weight: 800; margin-bottom: 16px; }
+    .onboard-confirm__desc { color: var(--text-light, #94a3b8); font-size: 1.05rem; line-height: 1.8; }
+    .onboard-footer { text-align: center; padding: 48px 0; font-size: 0.88rem; color: var(--text-light, #94a3b8); opacity: 0.6; }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="https://aeothis.com" class="nav__logo">
+        <img src="../../../images/AEOthis_logo_wide.png" alt="AEOthis" height="32">
+      </a>
+      <div class="nav__links"></div>
+    </div>
+  </nav>
+
+  <section class="onboard-hero">
+    <div class="container">
+      <img src="../logo.png" alt="Zelos Investment Counsel" class="onboard-hero__logo">
+      <h1 class="onboard-hero__title">Welcome aboard, Zelos Investment Counsel</h1>
+      <p class="onboard-hero__sub">Just two quick things and we'll get to work.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <form id="onboard-form">
+
+        <div class="onboard-step">
+          <div class="onboard-step__number">1</div>
+          <h2 class="onboard-step__title">Create an email alias</h2>
+          <p class="onboard-step__desc">Create an email alias like <code>aeo@zelosglobal.com</code> that forwards to <code>hello@aeothis.com</code></p>
+          <p class="onboard-step__why">We use this to set up third-party profiles on your behalf. Every account will belong to your domain, so you keep full ownership.</p>
+
+          <div class="onboard-howto">
+            <button type="button" class="onboard-howto__toggle">
+              Show me how <span class="onboard-howto__chevron">&#9660;</span>
+            </button>
+            <div class="onboard-howto__content">
+              <ol>
+                <li>Log in to your email hosting provider (wherever you manage your <code>@zelosglobal.com</code> email)</li>
+                <li>Look for <strong>Email Aliases</strong>, <strong>Forwarding</strong>, or <strong>Mail Routing</strong> in settings</li>
+                <li>Create a new alias: <code>aeo@zelosglobal.com</code></li>
+                <li>Set it to forward all mail to <code>hello@aeothis.com</code></li>
+                <li>Save your changes</li>
+              </ol>
+            </div>
+          </div>
+
+          <label for="email-alias" class="onboard-step__desc" style="margin-top: 1.2em; display: block;">Paste the alias you created so we can confirm it's working:</label>
+          <input type="email" id="email-alias" class="onboard-input" placeholder="aeo@zelosglobal.com" autocomplete="off">
+        </div>
+
+        <div class="onboard-step">
+          <div class="onboard-step__number">2</div>
+          <h2 class="onboard-step__title">Grant us website access</h2>
+          <p class="onboard-step__desc">Add us as an admin user on your WordPress site so we can install your AEO pages.</p>
+          <p class="onboard-step__why">We'll add your Answer Hub, Brand Facts page, and schema markup. This typically takes one session, and you can revoke access anytime after.</p>
+
+          <div class="onboard-howto">
+            <button type="button" class="onboard-howto__toggle">
+              Show me how <span class="onboard-howto__chevron">&#9660;</span>
+            </button>
+            <div class="onboard-howto__content">
+              <ol>
+                <li>Log in to your <strong>WordPress Dashboard</strong></li>
+                <li>Go to <strong>Users</strong> in the left menu</li>
+                <li>Click <strong>Add New User</strong></li>
+                <li>Enter <code>hello@aeothis.com</code> as the email</li>
+                <li>Set the role to <strong>Administrator</strong></li>
+                <li>Click <strong>Add New User</strong> to send the invite</li>
+              </ol>
+            </div>
+          </div>
+
+          <label class="onboard-checkbox"><input type="checkbox" id="platform-invite"> I've sent the invite to hello@aeothis.com</label>
+        </div>
+
+        <div class="onboard-submit">
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+          <button type="submit" class="btn" id="submit-btn" disabled>I'm Ready, Let's Go</button>
+        </div>
+
+      </form>
+
+      <div class="onboard-confirm" id="onboard-confirm">
+        <div class="onboard-confirm__check">&#10003;</div>
+        <h2 class="onboard-confirm__title">You're all set!</h2>
+        <p class="onboard-confirm__desc">We'll start work this week and send you your first progress report within 30 days. If you have any questions, reach out anytime at hello@aeothis.com</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="onboard-footer">
+    <div class="container">
+      &copy; 2026 AEO<em>this</em>. All rights reserved.
+    </div>
+  </footer>
+
+  <script>
+  (function() {
+    document.querySelectorAll('.onboard-howto__toggle').forEach(function(btn) {
+      btn.addEventListener('click', function() {
+        btn.closest('.onboard-howto').classList.toggle('is-open');
+      });
+    });
+
+    var emailInput = document.getElementById('email-alias');
+    var checkbox = document.getElementById('platform-invite');
+    var submitBtn = document.getElementById('submit-btn');
+
+    function checkForm() {
+      var emailFilled = emailInput.value.trim().length > 0 && emailInput.value.includes('@zelosglobal.com');
+      submitBtn.disabled = !(emailFilled && checkbox.checked);
+    }
+
+    emailInput.addEventListener('input', checkForm);
+    checkbox.addEventListener('change', checkForm);
+
+    var form = document.getElementById('onboard-form');
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      if (form.querySelector('[name="_gotcha"]').value) return;
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Submitting...';
+
+      var data = {
+        client: 'zelos-global',
+        client_name: 'Zelos Investment Counsel',
+        email_alias: emailInput.value.trim(),
+        website_access: { type: 'wordpress_admin', confirmed: checkbox.checked },
+        submitted_at: new Date().toISOString()
+      };
+
+      fetch('https://formspree.io/f/xkovedvd', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify(data)
+      })
+      .then(function(response) {
+        if (response.ok) {
+          form.style.display = 'none';
+          document.getElementById('onboard-confirm').classList.add('is-visible');
+        } else {
+          submitBtn.disabled = false;
+          submitBtn.textContent = "I'm Ready, Let's Go";
+          alert('Something went wrong. Please try again or email us at hello@aeothis.com');
+        }
+      })
+      .catch(function() {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "I'm Ready, Let's Go";
+        alert('Something went wrong. Please try again or email us at hello@aeothis.com');
+      });
+    });
+  })();
+  </script>
+
+</body>
+</html>
