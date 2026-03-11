@@ -220,6 +220,7 @@
     }
 
     /* Footer */
+    .onboard-hint { color: #f87171; font-size: 0.88rem; margin-top: 10px; margin-bottom: 0; }
     .onboard-footer {
       text-align: center;
       padding: 48px 0;
@@ -283,6 +284,7 @@
 
           <label for="email-alias" class="onboard-step__desc" style="margin-top: 1.2em; display: block;">Paste the alias you created so we can confirm it's working:</label>
           <input type="email" id="email-alias" class="onboard-input" placeholder="aeo@fitkids.ca" autocomplete="off">
+          <p id="email-hint" class="onboard-hint" style="display:none;">Please use an <strong>@fitkids.ca</strong> email address (e.g. aeo@fitkids.ca)</p>
         </div>
 
         <!-- Step 2: Website Access -->
@@ -350,9 +352,12 @@
     var emailInput = document.getElementById('email-alias');
     var checkbox = document.getElementById('wix-invite');
     var submitBtn = document.getElementById('submit-btn');
+    var emailHint = document.getElementById('email-hint');
 
     function checkForm() {
-      var emailFilled = emailInput.value.trim().length > 0 && emailInput.value.includes('@fitkids.ca');
+      var val = emailInput.value.trim();
+      var domainOk = val.includes('@fitkids.ca');
+      var emailFilled = val.length > 0 && domainOk;
       var checkboxChecked = checkbox.checked;
       submitBtn.disabled = !(emailFilled && checkboxChecked);
     }

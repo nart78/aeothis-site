@@ -44,6 +44,7 @@
     .onboard-confirm__check { width: 72px; height: 72px; border-radius: 50%; background: var(--accent, #cb6ce6); color: #fff; font-size: 2rem; display: inline-flex; align-items: center; justify-content: center; margin-bottom: 24px; }
     .onboard-confirm__title { font-size: 2rem; font-weight: 800; margin-bottom: 16px; }
     .onboard-confirm__desc { color: var(--text-light, #94a3b8); font-size: 1.05rem; line-height: 1.8; }
+    .onboard-hint { color: #f87171; font-size: 0.88rem; margin-top: 10px; margin-bottom: 0; }
     .onboard-footer { text-align: center; padding: 48px 0; font-size: 0.88rem; color: var(--text-light, #94a3b8); opacity: 0.6; }
   </style>
 </head>
@@ -94,6 +95,7 @@
 
           <label for="email-alias" class="onboard-step__desc" style="margin-top: 1.2em; display: block;">Paste the alias you created so we can confirm it's working:</label>
           <input type="email" id="email-alias" class="onboard-input" placeholder="aeo@carpethero.ca" autocomplete="off">
+          <p id="email-hint" class="onboard-hint" style="display:none;">Please use an <strong>@carpethero.ca</strong> email address (e.g. aeo@carpethero.ca)</p>
         </div>
 
         <div class="onboard-step">
@@ -154,10 +156,14 @@
     var emailInput = document.getElementById('email-alias');
     var checkbox = document.getElementById('platform-invite');
     var submitBtn = document.getElementById('submit-btn');
+    var emailHint = document.getElementById('email-hint');
 
     function checkForm() {
-      var emailFilled = emailInput.value.trim().length > 0 && emailInput.value.includes('@carpethero.ca');
+      var val = emailInput.value.trim();
+      var domainOk = val.includes('@carpethero.ca');
+      var emailFilled = val.length > 0 && domainOk;
       submitBtn.disabled = !(emailFilled && checkbox.checked);
+      emailHint.style.display = (val.length > 0 && !domainOk) ? 'block' : 'none';
     }
 
     emailInput.addEventListener('input', checkForm);
