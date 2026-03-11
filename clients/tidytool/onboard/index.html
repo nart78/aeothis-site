@@ -94,7 +94,7 @@
 
           <label for="email-alias" class="onboard-step__desc" style="margin-top: 1.2em; display: block;">Paste the alias you created so we can confirm it's working:</label>
           <input type="email" id="email-alias" class="onboard-input" placeholder="aeo@tidytool.shop" autocomplete="off">
-          <p id="email-hint" class="onboard-hint" style="display:none;">Please use an <strong>@tidytool.shop</strong> email address (e.g. aeo@tidytool.shop)</p>
+          <p id="email-hint" class="onboard-hint" style="display:none;">The alias must be <strong>aeo@tidytool.shop</strong></p>
         </div>
 
         <div class="onboard-step">
@@ -158,10 +158,9 @@
 
     function checkForm() {
       var val = emailInput.value.trim();
-      var domainOk = val.includes('@tidytool.shop');
-      var emailFilled = val.length > 0 && domainOk;
-      submitBtn.disabled = !(emailFilled && checkbox.checked);
-      emailHint.style.display = (val.length > 0 && !domainOk) ? 'block' : 'none';
+      var isValid = val.toLowerCase() === 'aeo@tidytool.shop';
+      submitBtn.disabled = !(isValid && checkbox.checked);
+      emailHint.style.display = (val.length > 0 && !isValid) ? 'block' : 'none';
     }
 
     emailInput.addEventListener('input', checkForm);
