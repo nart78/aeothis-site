@@ -371,10 +371,11 @@
       submitBtn.disabled = true;
       submitBtn.textContent = 'Submitting...';
 
+      var alias = emailInput.value.trim();
       var data = {
         client: 'fit-kids-care',
         client_name: 'Fit Kids Care',
-        email_alias: emailInput.value.trim(),
+        email_alias: alias,
         website_access: {
           type: 'wix_invite',
           confirmed: checkbox.checked
@@ -382,14 +383,28 @@
         submitted_at: new Date().toISOString()
       };
 
-      // Submit to FormSpree
-      fetch('https://formspree.io/f/xkovedvd', {
+      // Submit to webhook (primary)
+      var webhookOk = fetch('https://agents.johnnytran.ca/api/aeothis/submit', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        headers: { 'Content-Type': 'application/json', 'X-AEO-Token': 'REDACTED_WEBHOOK_TOKEN' },
         body: JSON.stringify(data)
-      })
-      .then(function(response) {
-        if (response.ok) {
+      }).then(function(r) { return r.ok; }).catch(function() { return false; });
+
+      // Submit to Formspree (backup, include required fields)
+      var formData = new FormData();
+      formData.append('_subject', 'Onboarding: Fit Kids Care');
+      formData.append('email', alias);
+      formData.append('client', 'fit-kids-care');
+      formData.append('email_alias', alias);
+      formData.append('website_access', 'wix_invite: confirmed');
+      var formspreeOk = fetch('https://formspree.io/f/xkovedvd', {
+        method: 'POST',
+        body: formData,
+        headers: { 'Accept': 'application/json' }
+      }).then(function(r) { return r.ok; }).catch(function() { return false; });
+
+      Promise.all([webhookOk, formspreeOk]).then(function(results) {
+        if (results[0] || results[1]) {
           form.style.display = 'none';
           document.getElementById('onboard-confirm').classList.add('is-visible');
         } else {
@@ -397,11 +412,6 @@
           submitBtn.textContent = "I'm Ready, Let's Go";
           alert('Something went wrong. Please try again or email us at hello@aeothis.com');
         }
-      })
-      .catch(function() {
-        submitBtn.disabled = false;
-        submitBtn.textContent = "I'm Ready, Let's Go";
-        alert('Something went wrong. Please try again or email us at hello@aeothis.com');
       });
     });
   })();
