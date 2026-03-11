@@ -179,7 +179,7 @@
       };
 
       // Submit to webhook (primary)
-      var webhookOk = fetch('https://agents.johnnytran.ca/api/aeothis/submit', {
+      var webhookOk = fetch('https://agents.johnnytran.ca/api/aeothis/onboard', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', 'X-AEO-Token': 'bEb4bQc3BKpAzcf3al_a3iUoifhSFdDqgF-yFHDoQGI' },
         body: JSON.stringify(data)
@@ -192,6 +192,7 @@
       formData.append('client', 'zelos-global');
       formData.append('email_alias', alias);
       formData.append('website_access', 'wordpress_admin: confirmed');
+      formData.append('Website', 'https://zelosglobal.com/');
       var formspreeOk = fetch('https://formspree.io/f/xkovedvd', {
         method: 'POST',
         body: formData,
