@@ -111,7 +111,7 @@
     var newVal = !checkboxState[actionId];
     checkboxState[actionId] = newVal;
     applyCheckboxes();
-    supaFetch('POST', 'client_actions', {
+    supaFetch('POST', 'client_actions?on_conflict=client_slug,action_id', {
       client_slug: slug,
       action_id: actionId,
       checked: newVal
