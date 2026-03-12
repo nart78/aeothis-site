@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEO Progress Dashboard - Carpet Hero Carpet Cleaning | AEOthis</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="../../../images/favicon-aeothis.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <style>
+    /* Hero */
+    .dash-hero { padding: 100px 0 40px; text-align: center; }
+    .dash-hero__logo { max-width: 160px; margin: 0 auto 24px; }
+    .dash-hero__title { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .dash-hero__sub { font-size: 1.1rem; color: var(--text-light, #94a3b8); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+    /* Progress bar */
+    .dash-progress { max-width: 680px; margin: 0 auto 48px; padding: 0 24px; }
+    .dash-progress__bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
+    .dash-progress__fill { height: 100%; background: linear-gradient(90deg, var(--accent, #cb6ce6), var(--cta, #7ed7ed)); border-radius: 3px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1); width: 0%; }
+    .dash-progress__label { font-size: 0.85rem; color: var(--text-muted, rgba(255,255,255,0.45)); text-align: right; }
+
+    /* Getting started / global actions */
+    .dash-getting-started { max-width: 720px; margin: 0 auto 32px; padding: 0 24px; }
+    .dash-getting-started__title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted, #64748b); margin-bottom: 14px; margin-top: 20px; }
+
+    /* Action items */
+    .dash-action { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; cursor: pointer; -webkit-user-select: none; user-select: none; }
+    .dash-checkbox { width: 22px; height: 22px; border: 2px solid rgba(255,255,255,0.2); border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; margin-top: 1px; background: transparent; }
+    .dash-checkbox.is-checked { background: var(--success, #10b981); border-color: var(--success, #10b981); }
+    .dash-checkbox.is-checked::after { content: '\2713'; color: #fff; font-size: 13px; font-weight: 700; }
+    .dash-action-label { font-size: 1rem; font-weight: 600; line-height: 1.5; }
+    .dash-action-label.is-done { text-decoration: line-through; opacity: 0.5; }
+    .dash-action-note { font-size: 0.88rem; color: var(--text-light, #94a3b8); line-height: 1.6; margin-top: 4px; }
+    .dash-action-note a { color: var(--cta, #7ed7ed); text-decoration: underline; text-underline-offset: 2px; }
+
+    /* Accordion layers */
+    .dash-layers { max-width: 720px; margin: 0 auto; padding: 0 24px 48px; }
+    .dash-layer { background: rgba(255,255,255,0.03); border: 1px solid var(--border, rgba(255,255,255,0.1)); border-radius: 20px; margin-bottom: 16px; overflow: hidden; transition: border-color 0.3s; }
+    .dash-layer.is-complete { border-color: var(--success, #10b981); }
+    .dash-layer.is-na { opacity: 0.5; }
+
+    /* Layer header */
+    .dash-layer__header { padding: 20px 24px; display: flex; align-items: center; gap: 14px; cursor: pointer; -webkit-user-select: none; user-select: none; }
+    .dash-layer__status { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dash-layer__status--complete { background: var(--success, #10b981); }
+    .dash-layer__status--in_progress { background: #f59e0b; }
+    .dash-layer__status--upcoming { background: rgba(255,255,255,0.2); }
+    .dash-layer__status--na { background: rgba(255,255,255,0.1); }
+    .dash-layer__info { flex: 1; min-width: 0; }
+    .dash-layer__name { font-size: 1rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .dash-layer__badge { font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+    .dash-layer__badge--complete { background: var(--success, #10b981); color: #fff; }
+    .dash-layer__badge--in_progress { background: #f59e0b; color: #fff; }
+    .dash-layer__badge--upcoming { background: rgba(255,255,255,0.1); color: var(--text-muted, #64748b); }
+    .dash-layer__badge--na { background: rgba(255,255,255,0.1); color: var(--text-muted, #64748b); }
+    .dash-layer__arrow { font-size: 0.65rem; color: var(--text-muted, #64748b); flex-shrink: 0; transition: transform 0.3s; }
+    .dash-layer.is-open .dash-layer__arrow { transform: rotate(90deg); }
+
+    /* Accordion body */
+    .dash-layer__body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+    .dash-layer.is-open .dash-layer__body { max-height: 2000px; }
+    .dash-layer__content { padding: 0 24px 24px; }
+    .dash-layer__desc { font-size: 0.95rem; color: var(--text-light, #94a3b8); line-height: 1.6; margin-bottom: 12px; }
+    .dash-layer__date { font-size: 0.82rem; color: var(--text-muted, #64748b); margin-bottom: 10px; }
+    .dash-layer__link { display: inline-block; font-size: 0.88rem; color: var(--cta, #7ed7ed); text-decoration: underline; text-underline-offset: 2px; margin-bottom: 12px; }
+
+    /* Citations */
+    .dash-citations-month { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted, #64748b); margin: 16px 0 10px; }
+    .dash-citation { border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .dash-citation__row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; }
+    .dash-citation__dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dash-citation__dot--complete { background: var(--success, #10b981); }
+    .dash-citation__dot--pending { background: rgba(255,255,255,0.2); }
+    .dash-citation__name { font-size: 0.92rem; font-weight: 600; flex: 1; }
+    .dash-citation__platform { font-size: 0.82rem; color: var(--text-muted, #64748b); }
+    .dash-citation__date { font-size: 0.8rem; color: var(--text-muted, #64748b); white-space: nowrap; }
+    .dash-citation__toggle { font-size: 0.8rem; color: var(--accent, #cb6ce6); cursor: pointer; white-space: nowrap; text-decoration: underline; text-underline-offset: 2px; }
+    .dash-citation__copy-wrap { display: none; padding: 0 14px 14px; }
+    .dash-citation.is-expanded .dash-citation__copy-wrap { display: block; }
+
+    /* Copy block (reused from guide page) */
+    .copy-block { background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+    .copy-block__header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .copy-block__label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .copy-block__btn { background: rgba(203,108,230,0.12); border: none; color: var(--accent, #cb6ce6); cursor: pointer; font-size: 0.82rem; font-weight: 600; font-family: inherit; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+    .copy-block__btn:hover { background: rgba(203,108,230,0.22); }
+    .copy-block__btn.is-copied { background: rgba(16,185,129,0.15); color: var(--success, #10b981); }
+    .copy-block__text { padding: 14px; font-size: 0.92rem; color: var(--text-light, #94a3b8); line-height: 1.7; }
+
+    /* Divider */
+    .dash-divider { max-width: 720px; margin: 0 auto 32px; padding: 0 24px; }
+    .dash-divider hr { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 0; }
+
+    /* Footer */
+    .dash-footer { text-align: center; padding: 48px 0; font-size: 0.85rem; color: var(--text-muted, #64748b); }
+    .dash-footer a { color: var(--accent, #cb6ce6); }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .dash-hero { padding: 80px 0 32px; }
+      .dash-hero__title { font-size: 1.7rem; }
+      .dash-layer__header { padding: 16px 18px; }
+      .dash-layer__content { padding: 0 18px 20px; }
+      .dash-citation__row { flex-wrap: wrap; gap: 8px; }
+      .dash-getting-started { padding: 0 16px; }
+      .dash-layers { padding: 0 16px 40px; }
+      .dash-progress { padding: 0 16px; }
+      .dash-divider { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body class="is-locked">
+
+  <div id="access-gate" class="access-gate"
+    data-slug="carpet-hero-carpet-cleaning"
+    data-salt="75+AUzAtNKN8uVoj0+ikHA=="
+    data-iv="AgUsP3XZNSSNN1Xp"
+    data-ciphertext="MyXGK2lSa+9iK0IWnbmBHBTxOc6DGjdmqUxoT88EqXFFMczVFlKRScYMNoqxHycRLEJVeIfFKhUclV+JjXc3eu+Zxc/zuHm+Po6sN2vfgBIMiwhGlVi2toLIIvzat51tEW46tH2nwjwMeGhewznNH04KbLSQhCCGQZkwCYhs5yLe7ue9ZaesIHTO9xMV6PCMOxEAZg7el2N+EsJ7U75ywy/yK78w8mKUA5fyaVu0sKq0I+E7hbAp+GgYCoZDMmGpJUWLyRt92nLNL4PFhB/gWuRQ7C0XJ77eR8glT59iIUTDrPubqD4H1jw1AOYUywkBCzA8vhFzR7NmQyLaMh3X4sP0xMrs8goqM/ebOgk3t9jr0lK5pgq0/+lOMvXL3jFcHqh/kY/dX1ikfAAyvO7ysvuQwOfszWeXepY5qcaOtRk3rnCvk8RrlmojF0T60/DQYz9AIwxIZJtu/8lRG5bGT0TbvwNEpZ3fq6U7D+utGO1s8oBHCSg1JVyV4WO5UBaGWIoGOa6HAyDAK7vgrXZzaDWiJnYetNjfCbPQ11fx+QuNiSxyaLSzZGwABkWkPqBzd0nuCJFE2oh7DHRCAaxtJkusIDOVEKEwODOxxoFr3A2uT0tyXb7zg2CpNGqqeydKEhEiB+8rPa6sxHHD5yK++ZHG+u6cKwBK/hlzf0eaSfNzc5xJ3SJb9ok+dcPx9GfXWl4WqJiNtbk1JugTiEL2EB3Mbo/yv+DqLuHCdSgDeal+ewNfdSmEV+DhvVr/Ltfu3NIE+1wHiCevv7SbGyOblPcibj4oa07fvlrIZ6VjpU5xAxn9POd9BSmxBOA4pkCmZGiF2XUY0mBze9Ks9plJiAB3ShMnHpAqbAxcMrLO/mTYDNlj6qiHC0DTOQvDgsULbACNgKZm6SeBeqpBckpDIMrL/PM=">
+    <img src="../../../images/AEOthis_logo_wide.png" alt="AEOthis" class="access-gate__logo">
+    <div class="access-gate__client">Carpet Hero Carpet Cleaning</div>
+    <div class="access-gate__heading">Enter your access code</div>
+    <div class="access-gate__inputs">
+      <input type="number" class="access-gate__digit" min="0" max="9" inputmode="numeric" pattern="[0-9]" aria-label="Digit 1">
+      <input type="number" class="access-gate__digit" min="0" max="9" inputmode="numeric" pattern="[0-9]" aria-label="Digit 2">
+      <input type="number" class="access-gate__digit" min="0" max="9" inputmode="numeric" pattern="[0-9]" aria-label="Digit 3">
+      <input type="number" class="access-gate__digit" min="0" max="9" inputmode="numeric" pattern="[0-9]" aria-label="Digit 4">
+      <input type="number" class="access-gate__digit" min="0" max="9" inputmode="numeric" pattern="[0-9]" aria-label="Digit 5">
+      <input type="number" class="access-gate__digit" min="0" max="9" inputmode="numeric" pattern="[0-9]" aria-label="Digit 6">
+    </div>
+    <button class="access-gate__btn" disabled>Unlock</button>
+    <div class="access-gate__error"></div>
+  </div>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="https://aeothis.com" class="nav__logo">
+        <img src="../../../images/AEOthis_logo_wide.png" alt="AEOthis" height="32">
+      </a>
+      <div class="nav__links"></div>
+    </div>
+  </nav>
+
+  <main></main>
+
+  <footer class="dash-footer">
+    <div class="container">
+      Questions? Email <a href="mailto:hello@aeothis.com">hello@aeothis.com</a><br>
+      &copy; 2026 AEO<em>this</em>
+    </div>
+  </footer>
+
+  <script src="../../../js/unlock.js"></script>
+  <script>const DASHBOARD_DATA = {"client": "carpet-hero-carpet-cleaning", "clientName": "Carpet Hero Carpet Cleaning", "startDate": "2026-03-11", "layers": [{"number": 1, "name": "Answer Intent Mapping", "status": "complete", "completedDate": "2026-03-11", "description": "Tested 31 AI queries across ChatGPT, Perplexity, Gemini, and Claude to map your competitive position.", "liveUrl": null, "clientActions": []}, {"number": 2, "name": "Answer Hub", "status": "complete", "completedDate": "2026-03-12", "description": "Built your Answer Hub page ranking the top carpet cleaners in Calgary with you as the top pick.", "liveUrl": "https://carpethero.ca/best-carpet-cleaning-in-calgary-2026", "clientActions": [{"id": "layer2-publish-hub", "label": "Publish Answer Hub page on your site", "note": "Paste the HTML block we provided into a new GoDaddy page."}]}, {"number": 3, "name": "Brand Facts Page", "status": "complete", "completedDate": "2026-03-12", "description": "Created a neutral, fact-based page with all your verifiable business details for AI verification.", "liveUrl": "https://carpethero.ca/brand-facts", "clientActions": [{"id": "layer3-publish-facts", "label": "Publish Brand Facts page on your site", "note": "Paste the HTML block we provided into a new GoDaddy page."}]}, {"number": 4, "name": "Machine-Readable Data", "status": "complete", "completedDate": "2026-03-12", "description": "Added structured JSON-LD data to your homepage so AI can read your business facts directly.", "liveUrl": null, "clientActions": [{"id": "layer4-publish-json", "label": "Add machine-readable data to your homepage", "note": "Paste the JSON-LD script block into your GoDaddy homepage HTML."}]}, {"number": 5, "name": "Schema Markup", "status": "complete", "completedDate": "2026-03-12", "description": "Added Organization, Service, and FAQPage schema markup across all key pages.", "liveUrl": null, "clientActions": [{"id": "layer5-publish-schema", "label": "Add schema markup to your pages", "note": "Paste the schema script blocks into each GoDaddy page as instructed."}]}, {"number": 6, "name": "Third-Party Citations", "status": "in_progress", "completedDate": null, "description": "Building 9 authoritative citations across 3 months to establish your presence on external platforms.", "liveUrl": null, "citations": [{"month": 1, "items": [{"name": "Wikidata Entry", "platform": "Wikidata", "status": "complete", "date": "2026-03-11", "copy": null}, {"name": "Google Business Profile", "platform": "Google", "status": "complete", "date": "2026-03-11", "copy": null}, {"name": "HomeStars Profile", "platform": "HomeStars", "status": "pending", "date": null, "copy": null}]}, {"month": 2, "items": [{"name": "TBD", "platform": "TBD", "status": "pending", "date": null, "copy": null}, {"name": "TBD", "platform": "TBD", "status": "pending", "date": null, "copy": null}, {"name": "TBD", "platform": "TBD", "status": "pending", "date": null, "copy": null}]}, {"month": 3, "items": [{"name": "TBD", "platform": "TBD", "status": "pending", "date": null, "copy": null}, {"name": "TBD", "platform": "TBD", "status": "pending", "date": null, "copy": null}, {"name": "TBD", "platform": "TBD", "status": "pending", "date": null, "copy": null}]}], "clientActions": [{"id": "layer6-gbp-optimize", "label": "Optimize your Google Business Profile", "note": "Follow the setup guide we sent you.", "link": "../guide/"}]}, {"number": 7, "name": "AI Shopping", "status": "na", "completedDate": null, "description": "Not applicable for service businesses.", "liveUrl": null, "clientActions": []}], "globalActions": [{"id": "global-email-alias", "label": "Set up email alias (aeo@carpethero.ca)", "note": "Create an alias that forwards to hello@aeothis.com"}, {"id": "global-website-access", "label": "Grant website builder access", "note": "Send GoDaddy delegate access invite to hello@aeothis.com"}, {"id": "global-review-workflow", "label": "Add review request to your customer workflow", "note": "Ask satisfied customers to leave a Google review after each job."}]};</script>
+  <script src="../../../js/dashboard.js"></script>
+
+</body>
+</html>
