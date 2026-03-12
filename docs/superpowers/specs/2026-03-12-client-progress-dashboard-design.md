@@ -21,8 +21,8 @@ Encrypted with the same access code as the client's proposal page. Follows exist
 ### 2. Overall Progress Bar
 
 - Gradient bar (purple to blue, matching brand)
-- Percentage calculated from: completed layers (weight: 10% each for layers 1-5, 7) + citations (Layer 6 citations split across remaining 40%)
-- Summary text: "5 of 7 layers complete, 2 of 9 citations placed"
+- Percentage calculated from: completed layers (weight: 10% each for layers 1-5 and 7) + citations (Layer 6 citations split across remaining 40%). In-progress layers count as 0%. Citation denominator is always 9 (the standard engagement). Layers marked N/A are excluded from the denominator (e.g., service businesses skip Layer 7, so it's 50 layers at 12% each + 40% citations).
+- Summary text: "5 of 6 layers complete, 2 of 9 citations placed"
 
 ### 3. Accordion Layers
 
@@ -50,14 +50,20 @@ Layer 7 shows "N/A - Service Business" for service clients, or full detail for e
 
 ### Our Work (Read-Only to Client)
 
-A `dashboard-data.json` file per client, stored alongside the dashboard HTML:
+A `dashboard-data.json` file per client, stored as a **build input only** (not deployed to GitHub Pages):
 
 ```
-/clients/{slug}/dashboard/
-  index.unencrypted.html  (generated from template + data)
-  index.html              (encrypted)
-  dashboard-data.json     (our layer/citation data)
+~/aeothis-tools/dashboard-data/
+  carpet-hero-carpet-cleaning.json
+  203-collectibles-ltd.json
+  ...
+
+/clients/{slug}/dashboard/       (deployed)
+  index.unencrypted.html          (generated from template + data)
+  index.html                      (encrypted)
 ```
+
+The JSON data is injected inline into the HTML at build time. The JSON files themselves are never pushed to the public site.
 
 Schema:
 
@@ -65,7 +71,6 @@ Schema:
 {
   "client": "carpet-hero-carpet-cleaning",
   "clientName": "Carpet Hero Carpet Cleaning",
-  "accessCode": "034049",
   "startDate": "2026-03-11",
   "layers": [
     {
@@ -157,6 +162,8 @@ Schema:
 }
 ```
 
+**Global actions placement**: Rendered as a "Getting Started" section between the progress bar and the accordion layers. These are engagement-wide tasks that don't belong to any specific layer.
+
 ### Client Actions (Read/Write via Supabase)
 
 **Table: `client_actions`**
@@ -171,9 +178,11 @@ Schema:
 
 **Unique constraint** on `(client_slug, action_id)` to prevent duplicates.
 
-**RLS policy**: Allow anonymous read/write filtered by `client_slug`. The dashboard page includes the client slug after decryption, so only authenticated (decrypted) users can interact. The access code gate provides the auth layer.
+**RLS policy**: Allow anonymous read/write filtered by `client_slug`. The access code gate is client-side only and does not authenticate with Supabase. This is an accepted tradeoff: the data in this table is low-sensitivity (boolean checkbox flags only). Someone who guesses a client slug could theoretically toggle checkboxes, but cannot access any sensitive client data. No credentials, financials, or PII are stored in this table.
 
 **Supabase JS client**: Loaded from CDN. On page load, fetch all actions for this client_slug. On checkbox toggle, upsert the row.
+
+**Supabase project**: Uses the existing Mixler Supabase project. The `client_actions` table gets its own RLS policy that permits anon inserts/updates (unlike Mixler's other tables which block anon writes). The anon key and project URL are embedded in the dashboard JS.
 
 ### Johnny's Admin Access
 
@@ -192,24 +201,21 @@ ORDER BY updated_at DESC;
 
 ## Build Process
 
-Same as proposal pages:
+**Build script**: `~/aeothis-tools/build_dashboard.py`
 
-1. Create/update `dashboard-data.json` with layer progress
-2. A build script reads the template + data, generates `index.unencrypted.html`
-3. Encrypt with client access code to produce `index.html`
-4. Push to GitHub Pages
+Usage: `python3 ~/aeothis-tools/build_dashboard.py <slug>` (or `--all` for all clients)
 
-The template is a single HTML file at `/clients/dashboard-template.html` (or similar) that uses JS to render from inline JSON data injected at build time.
+Steps:
 
-## Template Reuse
+1. Reads the template from `~/aeothis-site/clients/dashboard-template.html`
+2. Reads the client's data from `~/aeothis-tools/dashboard-data/{slug}.json`
+3. Reads the client's access code from `~/aeothis-tools/clients/{slug}.json` (same source as proposal pages)
+4. Injects the data as a `<script>` tag: `const DASHBOARD_DATA = {...}`
+5. Outputs `~/aeothis-site/clients/{slug}/dashboard/index.unencrypted.html`
+6. Encrypts to `index.html` using the existing encryption approach, but with corrected relative paths for the dashboard depth (`../../../` instead of `../../` for shared assets)
+7. Push to GitHub Pages
 
-One HTML template serves all clients. Per-client differences come entirely from `dashboard-data.json`. The build script:
-
-1. Reads the template
-2. Reads the client's `dashboard-data.json`
-3. Injects the data as a `<script>` tag: `const DASHBOARD_DATA = {...}`
-4. Outputs `index.unencrypted.html`
-5. Encrypts to `index.html`
+The encryption logic from `encrypt_proposal.py` will be extracted into a shared function that accepts the HTML content, access code, and relative path depth as parameters. Both proposal and dashboard encryption will use this shared function.
 
 ## Visual Design
 
@@ -246,13 +252,10 @@ These appear on every client dashboard. Additional per-layer actions are defined
 | layer5-publish-schema | Add schema markup to pages | Layer 5 |
 | layer6-gbp-optimize | Optimize Google Business Profile | Layer 6 |
 
-## Supabase Configuration
-
-Using the existing Mixler Supabase project (already set up). Create the `client_actions` table and RLS policies. The anon key is safe to embed in client-side code since RLS restricts access.
-
 ## Out of Scope
 
 - Real-time notifications to Johnny when a client checks something off (can add later via Supabase webhooks)
 - Client-side editing of layer data (we control that)
 - Historical progress tracking / changelog
 - Multi-user access per client (one access code per client is sufficient)
+- Migrating existing GBP guide page checkboxes from localStorage to Supabase (guide pages keep localStorage for now; only dashboard checkboxes use Supabase)
