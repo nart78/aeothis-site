@@ -245,12 +245,6 @@
         layersHtml += renderCitations(layer.citations);
       }
 
-      if (layer.clientActions && layer.clientActions.length) {
-        layersHtml += '<div style="margin-top: 20px; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.06);">';
-        layersHtml += '<div class="dash-getting-started__title" style="margin-top:0;">Your Action Items</div>';
-        layer.clientActions.forEach(function (a) { layersHtml += renderActionItem(a); });
-        layersHtml += '</div>';
-      }
 
       layersHtml += '</div></div></div>';
     });
