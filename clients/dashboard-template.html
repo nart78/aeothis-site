@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AEO Progress Dashboard - <!-- TITLE_PLACEHOLDER --> | AEOthis</title>
+  <meta name="robots" content="noindex, nofollow">
+  <link rel="icon" type="image/png" href="../../../images/favicon-aeothis.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="../../../css/style.css">
+  <style>
+    /* Hero */
+    .dash-hero { padding: 100px 0 40px; text-align: center; }
+    .dash-hero__logo { max-width: 160px; margin: 0 auto 24px; }
+    .dash-hero__title { font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; letter-spacing: -0.02em; }
+    .dash-hero__sub { font-size: 1.1rem; color: var(--text-light, #94a3b8); max-width: 480px; margin: 0 auto; line-height: 1.7; }
+
+    /* Progress bar */
+    .dash-progress { max-width: 680px; margin: 0 auto 48px; padding: 0 24px; }
+    .dash-progress__bar { height: 6px; background: rgba(255,255,255,0.08); border-radius: 3px; overflow: hidden; margin-bottom: 10px; }
+    .dash-progress__fill { height: 100%; background: linear-gradient(90deg, var(--accent, #cb6ce6), var(--cta, #7ed7ed)); border-radius: 3px; transition: width 0.6s cubic-bezier(0.22, 1, 0.36, 1); width: 0%; }
+    .dash-progress__label { font-size: 0.85rem; color: var(--text-muted, rgba(255,255,255,0.45)); text-align: right; }
+
+    /* Getting started / global actions */
+    .dash-getting-started { max-width: 720px; margin: 0 auto 32px; padding: 0 24px; }
+    .dash-getting-started__title { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted, #64748b); margin-bottom: 14px; margin-top: 20px; }
+
+    /* Action items */
+    .dash-action { display: flex; align-items: flex-start; gap: 12px; padding: 12px 0; cursor: pointer; -webkit-user-select: none; user-select: none; }
+    .dash-checkbox { width: 22px; height: 22px; border: 2px solid rgba(255,255,255,0.2); border-radius: 6px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; transition: all 0.2s; margin-top: 1px; background: transparent; }
+    .dash-checkbox.is-checked { background: var(--success, #10b981); border-color: var(--success, #10b981); }
+    .dash-checkbox.is-checked::after { content: '\2713'; color: #fff; font-size: 13px; font-weight: 700; }
+    .dash-action-label { font-size: 1rem; font-weight: 600; line-height: 1.5; }
+    .dash-action-label.is-done { text-decoration: line-through; opacity: 0.5; }
+    .dash-action-note { font-size: 0.88rem; color: var(--text-light, #94a3b8); line-height: 1.6; margin-top: 4px; }
+    .dash-action-note a { color: var(--cta, #7ed7ed); text-decoration: underline; text-underline-offset: 2px; }
+
+    /* Accordion layers */
+    .dash-layers { max-width: 720px; margin: 0 auto; padding: 0 24px 48px; }
+    .dash-layer { background: rgba(255,255,255,0.03); border: 1px solid var(--border, rgba(255,255,255,0.1)); border-radius: 20px; margin-bottom: 16px; overflow: hidden; transition: border-color 0.3s; }
+    .dash-layer.is-complete { border-color: var(--success, #10b981); }
+    .dash-layer.is-na { opacity: 0.5; }
+
+    /* Layer header */
+    .dash-layer__header { padding: 20px 24px; display: flex; align-items: center; gap: 14px; cursor: pointer; -webkit-user-select: none; user-select: none; }
+    .dash-layer__status { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; }
+    .dash-layer__status--complete { background: var(--success, #10b981); }
+    .dash-layer__status--in_progress { background: #f59e0b; }
+    .dash-layer__status--upcoming { background: rgba(255,255,255,0.2); }
+    .dash-layer__status--na { background: rgba(255,255,255,0.1); }
+    .dash-layer__info { flex: 1; min-width: 0; }
+    .dash-layer__name { font-size: 1rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .dash-layer__badge { font-size: 0.75rem; font-weight: 600; padding: 4px 12px; border-radius: 20px; white-space: nowrap; flex-shrink: 0; }
+    .dash-layer__badge--complete { background: var(--success, #10b981); color: #fff; }
+    .dash-layer__badge--in_progress { background: #f59e0b; color: #fff; }
+    .dash-layer__badge--upcoming { background: rgba(255,255,255,0.1); color: var(--text-muted, #64748b); }
+    .dash-layer__badge--na { background: rgba(255,255,255,0.1); color: var(--text-muted, #64748b); }
+    .dash-layer__arrow { font-size: 0.65rem; color: var(--text-muted, #64748b); flex-shrink: 0; transition: transform 0.3s; }
+    .dash-layer.is-open .dash-layer__arrow { transform: rotate(90deg); }
+
+    /* Accordion body */
+    .dash-layer__body { max-height: 0; overflow: hidden; transition: max-height 0.4s cubic-bezier(0.22, 1, 0.36, 1); }
+    .dash-layer.is-open .dash-layer__body { max-height: 2000px; }
+    .dash-layer__content { padding: 0 24px 24px; }
+    .dash-layer__desc { font-size: 0.95rem; color: var(--text-light, #94a3b8); line-height: 1.6; margin-bottom: 12px; }
+    .dash-layer__date { font-size: 0.82rem; color: var(--text-muted, #64748b); margin-bottom: 10px; }
+    .dash-layer__link { display: inline-block; font-size: 0.88rem; color: var(--cta, #7ed7ed); text-decoration: underline; text-underline-offset: 2px; margin-bottom: 12px; }
+
+    /* Citations */
+    .dash-citations-month { font-size: 0.78rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-muted, #64748b); margin: 16px 0 10px; }
+    .dash-citation { border: 1px solid rgba(255,255,255,0.06); border-radius: 10px; overflow: hidden; margin-bottom: 8px; }
+    .dash-citation__row { display: flex; align-items: center; gap: 12px; padding: 12px 14px; }
+    .dash-citation__dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+    .dash-citation__dot--complete { background: var(--success, #10b981); }
+    .dash-citation__dot--pending { background: rgba(255,255,255,0.2); }
+    .dash-citation__name { font-size: 0.92rem; font-weight: 600; flex: 1; }
+    .dash-citation__platform { font-size: 0.82rem; color: var(--text-muted, #64748b); }
+    .dash-citation__date { font-size: 0.8rem; color: var(--text-muted, #64748b); white-space: nowrap; }
+    .dash-citation__toggle { font-size: 0.8rem; color: var(--accent, #cb6ce6); cursor: pointer; white-space: nowrap; text-decoration: underline; text-underline-offset: 2px; }
+    .dash-citation__copy-wrap { display: none; padding: 0 14px 14px; }
+    .dash-citation.is-expanded .dash-citation__copy-wrap { display: block; }
+
+    /* Copy block (reused from guide page) */
+    .copy-block { background: rgba(0,0,0,0.35); border: 1px solid rgba(255,255,255,0.08); border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+    .copy-block__header { display: flex; align-items: center; justify-content: space-between; padding: 10px 14px; background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .copy-block__label { font-size: 0.8rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; }
+    .copy-block__btn { background: rgba(203,108,230,0.12); border: none; color: var(--accent, #cb6ce6); cursor: pointer; font-size: 0.82rem; font-weight: 600; font-family: inherit; padding: 6px 14px; border-radius: 6px; transition: all 0.2s; display: flex; align-items: center; gap: 6px; }
+    .copy-block__btn:hover { background: rgba(203,108,230,0.22); }
+    .copy-block__btn.is-copied { background: rgba(16,185,129,0.15); color: var(--success, #10b981); }
+    .copy-block__text { padding: 14px; font-size: 0.92rem; color: var(--text-light, #94a3b8); line-height: 1.7; }
+
+    /* Divider */
+    .dash-divider { max-width: 720px; margin: 0 auto 32px; padding: 0 24px; }
+    .dash-divider hr { border: none; border-top: 1px solid rgba(255,255,255,0.06); margin: 0; }
+
+    /* Footer */
+    .dash-footer { text-align: center; padding: 48px 0; font-size: 0.85rem; color: var(--text-muted, #64748b); }
+    .dash-footer a { color: var(--accent, #cb6ce6); }
+
+    /* Mobile */
+    @media (max-width: 640px) {
+      .dash-hero { padding: 80px 0 32px; }
+      .dash-hero__title { font-size: 1.7rem; }
+      .dash-layer__header { padding: 16px 18px; }
+      .dash-layer__content { padding: 0 18px 20px; }
+      .dash-citation__row { flex-wrap: wrap; gap: 8px; }
+      .dash-getting-started { padding: 0 16px; }
+      .dash-layers { padding: 0 16px 40px; }
+      .dash-progress { padding: 0 16px; }
+      .dash-divider { padding: 0 16px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a href="https://aeothis.com" class="nav__logo">
+        <img src="../../../images/AEOthis_logo_wide.png" alt="AEOthis" height="32">
+      </a>
+      <div class="nav__links"></div>
+    </div>
+  </nav>
+
+  <section class="dash-hero">
+    <div class="container">
+      <img src="../logo.png" alt="<!-- TITLE_PLACEHOLDER -->" class="dash-hero__logo">
+      <h1 class="dash-hero__title"><!-- TITLE_PLACEHOLDER --></h1>
+      <p class="dash-hero__sub">Your AEO Progress</p>
+    </div>
+  </section>
+
+  <div class="dash-progress">
+    <div class="dash-progress__bar"><div class="dash-progress__fill" id="dash-progress-fill"></div></div>
+    <div class="dash-progress__label" id="dash-progress-label">Loading...</div>
+  </div>
+
+  <div class="dash-getting-started" id="dash-global-actions"></div>
+
+  <div class="dash-divider"><hr></div>
+
+  <div class="dash-layers" id="dash-layers"></div>
+
+  <footer class="dash-footer">
+    <div class="container">
+      Questions? Email <a href="mailto:hello@aeothis.com">hello@aeothis.com</a><br>
+      &copy; 2026 AEO<em>this</em>
+    </div>
+  </footer>
+
+  <!-- DASHBOARD_DATA_PLACEHOLDER -->
+  <script src="../../../js/dashboard.js"></script>
+
+</body>
+</html>
