@@ -20,3 +20,18 @@
 - Honeypot field `_gotcha` added for spam prevention
 - Competitors, USPs, and social links use one-at-a-time input pattern with "I'm Done" button
 - Mobile: pinch-zoom disabled, `100dvh` + `visualViewport` API for keyboard handling
+
+## Documentation
+
+- Architecture overview: `docs/architecture.md`
+- Deploy changes: `docs/runbooks/deploy.md`
+- Build client pages (proposal, guide, dashboard): `docs/runbooks/client-pages.md`
+- ADR: GitHub Pages static hosting: `docs/decisions/ADR-001-github-pages-static.md`
+- ADR: Client-side proposal page encryption: `docs/decisions/ADR-002-client-side-encryption.md`
+
+## Open Questions
+
+At the start of each session, check `UNKNOWNS.md`.
+If there are open questions, ask Johnny if any have been resolved before starting work.
+If the file has no open questions, skip this step.
+If you discover a new gap during the session, add it.
