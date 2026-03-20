@@ -188,7 +188,7 @@
       // Submit to webhook (primary)
       var webhookOk = fetch('https://agents.johnnytran.ca/api/aeothis/onboard', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json', 'X-AEO-Token': 'REDACTED_WEBHOOK_TOKEN' },
+        headers: { 'Content-Type': 'application/json', 'X-AEO-Token': '2Rlr-JcYB5kLECWysAWyEy7Rnpeid3z9CE8jnmE6S5M' },
         body: JSON.stringify(data)
       }).then(function(r) { return r.ok; }).catch(function() { return false; });
 
