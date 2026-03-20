@@ -1,8 +1,8 @@
 (function () {
   'use strict';
 
-  var SUPABASE_URL = 'https://dnuygqdmzjswroyzvkjb.supabase.co';
-  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImRudXlncWRtempzd3JveXp2a2piIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzIwODU0NDMsImV4cCI6MjA4NzY2MTQ0M30.c1ql6RXhutfX6_hw5GZq1FblD92_w1agLWqq8U6JKVs';
+  var SUPABASE_URL = 'https://srcqmyneyhfgkoigrwql.supabase.co';
+  var SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InNyY3FteW5leWhmZ2tvaWdyd3FsIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQwMTAxMDksImV4cCI6MjA4OTU4NjEwOX0.udLEfITsPtTXZVU2p1IZDfCMoTyYppxTeONdGxGtfok';
 
   function supaFetch(method, path, body) {
     var headers = {
