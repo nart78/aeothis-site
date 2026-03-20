@@ -1,5 +1,7 @@
 # Client AEO Progress Dashboard
 
+> **Status: Completed** — Implemented. `build_dashboard.py` in aeothis-tools generates and deploys dashboards to `/clients/{slug}/dashboard/`.
+
 ## Overview
 
 A client-facing dashboard page where AEOthis clients can track the progress of their AEO engagement across all 7 layers. Clients see what we've completed, what's in progress, and can check off their own action items. Johnny can query Supabase to see client task completion.

@@ -1,5 +1,7 @@
 # Proposal Access Gate - Design Document
 
+> **Status: Completed** — Implemented 2026-03-09. This document is an archived planning record.
+
 **Date:** 2026-03-09
 **Status:** Approved
 

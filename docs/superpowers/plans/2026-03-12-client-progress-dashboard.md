@@ -1,5 +1,7 @@
 # Client AEO Progress Dashboard Implementation Plan
 
+> **Status: Completed** — Implemented. `build_dashboard.py` in aeothis-tools generates and deploys dashboards to `/clients/{slug}/dashboard/`.
+
 > **For agentic workers:** REQUIRED: Use superpowers:subagent-driven-development (if subagents available) or superpowers:executing-plans to implement this plan. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Build a reusable, encrypted client dashboard page showing AEO layer progress with Supabase-backed checkboxes for client action items.

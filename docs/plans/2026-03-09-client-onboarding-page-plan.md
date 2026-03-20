@@ -1,5 +1,7 @@
 # Client Onboarding Page - Implementation Plan
 
+> **Status: Completed** — Implemented 2026-03-09. This document is an archived planning record.
+
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** Build a guided two-step onboarding wizard at `clients/{slug}/onboard/` that collects email alias and website access info, with provider-specific instructions.

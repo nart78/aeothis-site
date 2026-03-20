@@ -1,5 +1,7 @@
 # Proposal Access Gate - Implementation Plan
 
+> **Status: Completed** — Implemented 2026-03-09. This document is an archived planning record.
+
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** Encrypt client proposal pages with a 6-digit access code so only clients with the code can view their proposal.
